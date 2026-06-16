@@ -3,515 +3,196 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Vedaant Mutha — Researcher & Pre-Medical Student</title>
-<meta name="description" content="Vedaant Mutha — pre-medical student and researcher at the University of Florida working at the intersection of medicine, healthcare access, and economics." />
+<title>Vedaant Mutha</title>
+<meta name="description" content="Vedaant Mutha, a student at the University of Florida studying biology and economics. Researcher, runner, and founder." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #0a0d12;
-    --bg-2: #0d1118;
-    --surface: rgba(255, 255, 255, 0.035);
-    --surface-2: rgba(255, 255, 255, 0.06);
-    --border: rgba(255, 255, 255, 0.09);
-    --border-strong: rgba(255, 255, 255, 0.16);
-    --text: #f4f2ec;
-    --muted: #99a2ad;
-    --muted-2: #6b7480;
-    --accent: #5eead4;
-    --accent-2: #818cf8;
-    --accent-soft: rgba(94, 234, 212, 0.12);
-    --serif: 'Fraunces', Georgia, serif;
-    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    --maxw: 1080px;
+    --bg: #f7f5f0;
+    --bg-card: #fffefb;
+    --ink: #1b1a17;
+    --ink-soft: #4a4843;
+    --muted: #8a877f;
+    --line: #e3e0d8;
+    --line-strong: #cfccc2;
+    --accent: #9a4a2f;
+    --serif: 'Instrument Serif', Georgia, serif;
+    --sans: 'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --maxw: 1120px;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; scroll-padding-top: 90px; }
-
+  html { scroll-behavior: smooth; scroll-padding-top: 88px; }
   body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--sans);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
+    background: var(--bg); color: var(--ink); font-family: var(--sans);
+    font-weight: 400; line-height: 1.65; -webkit-font-smoothing: antialiased; overflow-x: hidden;
   }
+  ::selection { background: var(--accent); color: #fff; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
+  a { color: inherit; }
 
-  /* Background ambience */
-  .bg-glow {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background:
-      radial-gradient(60% 50% at 15% 0%, rgba(94, 234, 212, 0.10) 0%, transparent 55%),
-      radial-gradient(55% 45% at 90% 10%, rgba(129, 140, 248, 0.10) 0%, transparent 55%),
-      radial-gradient(45% 40% at 50% 100%, rgba(94, 234, 212, 0.06) 0%, transparent 60%);
-  }
-  .grain {
-    position: fixed;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    opacity: 0.035;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-
-  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; position: relative; z-index: 2; }
-
-  /* ---------- NAV ---------- */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    transition: background 0.3s, border-color 0.3s, backdrop-filter 0.3s;
-    border-bottom: 1px solid transparent;
-  }
-  nav.scrolled {
-    background: rgba(10, 13, 18, 0.7);
-    backdrop-filter: blur(16px) saturate(140%);
-    -webkit-backdrop-filter: blur(16px) saturate(140%);
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-inner {
-    max-width: var(--maxw);
-    margin: 0 auto;
-    padding: 16px 28px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .brand {
-    font-family: var(--serif);
-    font-size: 19px;
-    font-weight: 500;
-    letter-spacing: -0.01em;
-    color: var(--text);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .brand .dot {
-    width: 9px; height: 9px; border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 14px var(--accent);
-  }
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; transition: background .3s, border-color .3s; border-bottom: 1px solid transparent; }
+  nav.scrolled { background: rgba(247,245,240,.82); backdrop-filter: blur(14px) saturate(150%); -webkit-backdrop-filter: blur(14px) saturate(150%); border-bottom: 1px solid var(--line); }
+  .nav-inner { max-width: var(--maxw); margin: 0 auto; padding: 18px 32px; display: flex; align-items: center; justify-content: space-between; }
+  .brand { font-family: var(--serif); font-size: 22px; text-decoration: none; color: var(--ink); }
   .nav-links { display: flex; gap: 30px; align-items: center; }
-  .nav-links a {
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 13.5px;
-    font-weight: 500;
-    letter-spacing: 0.01em;
-    transition: color 0.2s;
-    position: relative;
-  }
-  .nav-links a::after {
-    content: '';
-    position: absolute;
-    left: 0; bottom: -5px;
-    width: 0; height: 1.5px;
-    background: var(--accent);
-    transition: width 0.25s;
-  }
-  .nav-links a:hover, .nav-links a.active { color: var(--text); }
+  .nav-links a { font-size: 14px; color: var(--ink-soft); text-decoration: none; transition: color .2s; position: relative; }
+  .nav-links a::after { content: ''; position: absolute; left: 0; bottom: -4px; width: 0; height: 1px; background: var(--accent); transition: width .25s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--ink); }
   .nav-links a.active::after { width: 100%; }
-  .nav-cta {
-    padding: 8px 16px;
-    border: 1px solid var(--border-strong);
-    border-radius: 100px;
-    font-size: 13px !important;
-    color: var(--text) !important;
-    transition: background 0.2s, border-color 0.2s !important;
-  }
-  .nav-cta:hover { background: var(--surface-2); border-color: var(--accent); }
-  .nav-cta::after { display: none; }
-  .menu-toggle { display: none; background: none; border: none; color: var(--text); cursor: pointer; }
+  .menu-toggle { display: none; background: none; border: none; color: var(--ink); cursor: pointer; }
 
-  /* ---------- HERO ---------- */
-  header.hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    position: relative;
-    padding: 120px 0 80px;
-  }
-  .hero-grid {
-    display: grid;
-    grid-template-columns: 1.45fr 1fr;
-    gap: 60px;
-    align-items: center;
-    width: 100%;
-  }
-  .eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    font-size: 12.5px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--accent);
-    padding: 7px 14px;
-    border: 1px solid var(--border);
-    border-radius: 100px;
-    background: var(--accent-soft);
-    margin-bottom: 28px;
-  }
-  .eyebrow .pulse {
-    width: 7px; height: 7px; border-radius: 50%;
-    background: var(--accent);
-    animation: pulse 2.2s infinite;
-  }
-  @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(94,234,212,0.5); }
-    70% { box-shadow: 0 0 0 8px rgba(94,234,212,0); }
-    100% { box-shadow: 0 0 0 0 rgba(94,234,212,0); }
-  }
-  h1.hero-name {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-size: clamp(48px, 8vw, 92px);
-    line-height: 0.98;
-    letter-spacing: -0.03em;
-    margin-bottom: 26px;
-  }
-  h1.hero-name em {
-    font-style: italic;
-    background: linear-gradient(120deg, var(--accent), var(--accent-2));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .hero-sub {
-    font-size: clamp(17px, 2vw, 20px);
-    color: var(--muted);
-    max-width: 540px;
-    line-height: 1.7;
-    margin-bottom: 36px;
-    font-weight: 300;
-  }
-  .hero-sub strong { color: var(--text); font-weight: 500; }
-  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    padding: 13px 24px;
-    border-radius: 100px;
-    font-size: 14.5px;
-    font-weight: 500;
-    text-decoration: none;
-    cursor: pointer;
-    transition: transform 0.2s, background 0.2s, border-color 0.2s, box-shadow 0.2s;
-    border: 1px solid transparent;
-  }
-  .btn-primary {
-    background: linear-gradient(120deg, var(--accent), #7fe9d8);
-    color: #06231e;
-    box-shadow: 0 6px 24px rgba(94, 234, 212, 0.22);
-  }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(94, 234, 212, 0.32); }
-  .btn-ghost { background: var(--surface); color: var(--text); border-color: var(--border-strong); }
-  .btn-ghost:hover { background: var(--surface-2); border-color: var(--accent); transform: translateY(-2px); }
+  /* HERO */
+  header.hero { padding: 150px 0 90px; }
+  .loc-badge { display: inline-flex; align-items: center; gap: 9px; font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 40px; }
+  .loc-badge .d { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+  .hero-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 64px; align-items: center; }
+  h1.hero-head { font-family: var(--serif); font-weight: 400; font-size: clamp(44px,6vw,78px); line-height: 1.04; margin-bottom: 28px; }
+  h1.hero-head em { font-style: italic; color: var(--accent); }
+  .hero-bio { font-size: 18px; color: var(--ink-soft); font-weight: 300; max-width: 520px; line-height: 1.75; margin-bottom: 34px; }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+  .btn { display: inline-flex; align-items: center; gap: 9px; padding: 13px 26px; border-radius: 100px; font-size: 14.5px; font-weight: 500; text-decoration: none; cursor: pointer; border: 1px solid var(--ink); transition: background .2s, color .2s, transform .2s; }
+  .btn-solid { background: var(--ink); color: var(--bg); }
+  .btn-solid:hover { transform: translateY(-2px); }
+  .btn-line { background: transparent; color: var(--ink); border-color: var(--line-strong); }
+  .btn-line:hover { border-color: var(--ink); transform: translateY(-2px); }
 
-  /* Hero portrait */
-  .portrait-wrap { display: flex; justify-content: center; position: relative; }
-  .portrait {
-    width: 280px; height: 340px;
-    border-radius: 22px;
-    background:
-      radial-gradient(circle at 50% 35%, rgba(94,234,212,0.18), transparent 60%),
-      linear-gradient(160deg, #141a23, #0c1016);
-    border: 1px solid var(--border-strong);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 30px 70px rgba(0,0,0,0.5);
-  }
-  .portrait .monogram {
-    font-family: var(--serif);
-    font-size: 90px;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    -webkit-background-clip: text; background-clip: text;
-    -webkit-text-fill-color: transparent;
-    line-height: 1;
-  }
-  .portrait .ph-note {
-    position: absolute; bottom: 16px;
-    font-size: 11px; color: var(--muted-2);
-    letter-spacing: 0.04em;
-  }
-  .portrait-badge {
-    position: absolute;
-    bottom: -18px; right: -10px;
-    background: var(--bg-2);
-    border: 1px solid var(--border-strong);
-    border-radius: 14px;
-    padding: 12px 16px;
-    display: flex; align-items: center; gap: 10px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.45);
-  }
-  .portrait-badge .pb-num { font-family: var(--serif); font-size: 24px; color: var(--accent); line-height: 1; }
-  .portrait-badge .pb-label { font-size: 11px; color: var(--muted); line-height: 1.3; }
+  .portrait { aspect-ratio: 4/5; width: 100%; background: linear-gradient(160deg,#ece8df,#ddd8cc); border: 1px solid var(--line-strong); border-radius: 6px; overflow: hidden; position: relative; }
+  .portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .portrait .fallback { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .portrait .mono { font-family: var(--serif); font-size: 84px; color: var(--ink); opacity: .5; }
+  .portrait .ph { position: absolute; top: 14px; right: 16px; font-size: 11px; color: var(--muted); border: 1px dashed var(--line-strong); padding: 3px 8px; border-radius: 4px; }
 
-  /* ---------- STATS ---------- */
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    overflow: hidden;
-    margin-top: 70px;
-  }
-  .stat {
-    background: var(--bg);
-    padding: 26px 22px;
-    text-align: center;
-    transition: background 0.25s;
-  }
-  .stat:hover { background: var(--surface); }
-  .stat .num {
-    font-family: var(--serif);
-    font-size: 40px;
-    font-weight: 400;
-    line-height: 1;
-    margin-bottom: 8px;
-    background: linear-gradient(120deg, var(--accent), var(--accent-2));
-    -webkit-background-clip: text; background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .stat .lbl { font-size: 12.5px; color: var(--muted); letter-spacing: 0.02em; }
+  /* SECTION */
+  section { padding: 80px 0; border-top: 1px solid var(--line); }
+  .sec-label { display: flex; align-items: baseline; gap: 16px; margin-bottom: 40px; }
+  .sec-num { font-family: var(--serif); font-size: 17px; color: var(--accent); }
+  .sec-name { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  h2.sec-title { font-family: var(--serif); font-weight: 400; font-size: clamp(30px,4.2vw,46px); line-height: 1.08; max-width: 760px; margin-bottom: 18px; }
+  .sec-intro { font-size: 18px; color: var(--ink-soft); font-weight: 300; max-width: 620px; line-height: 1.7; }
 
-  /* ---------- SECTIONS ---------- */
-  section { padding: 100px 0; position: relative; }
-  .section-head { margin-bottom: 54px; max-width: 680px; }
-  .section-eyebrow {
-    font-size: 12.5px; font-weight: 600; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--accent);
-    margin-bottom: 16px; display: flex; align-items: center; gap: 12px;
-  }
-  .section-eyebrow::before {
-    content: ''; width: 28px; height: 1px; background: var(--accent); opacity: 0.6;
-  }
-  h2.section-title {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-size: clamp(32px, 5vw, 48px);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    margin-bottom: 16px;
-  }
-  .section-desc { color: var(--muted); font-size: 17px; font-weight: 300; line-height: 1.7; }
+  /* AT A GLANCE */
+  .glance-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+  .about-lead { font-size: 18px; color: var(--ink-soft); font-weight: 300; line-height: 1.8; margin-bottom: 30px; }
+  .about-lead b { font-weight: 500; color: var(--ink); }
+  .facts { display: flex; flex-direction: column; }
+  .fact-row { display: grid; grid-template-columns: 120px 1fr; gap: 18px; padding: 15px 0; border-bottom: 1px solid var(--line); }
+  .fact-row:first-child { border-top: 1px solid var(--line); }
+  .fact-k { font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
+  .fact-v { font-size: 16px; color: var(--ink); }
+  .fact-v .accent { color: var(--accent); }
+  .stat-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-content: start; }
+  .stat-card { background: var(--bg-card); border: 1px solid var(--line); border-radius: 6px; padding: 24px 22px; transition: border-color .25s, transform .25s; }
+  .stat-card:hover { border-color: var(--line-strong); transform: translateY(-2px); }
+  .stat-card .n { font-family: var(--serif); font-size: 46px; line-height: 1; }
+  .stat-card .l { font-size: 13.5px; color: var(--muted); margin-top: 8px; line-height: 1.4; }
 
-  /* ---------- PUBLICATION CARDS ---------- */
-  .pub-list { display: flex; flex-direction: column; gap: 18px; }
-  .pub-card {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 24px;
-    align-items: start;
-    padding: 28px 30px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    text-decoration: none;
-    color: inherit;
-    transition: border-color 0.25s, background 0.25s, transform 0.25s;
-  }
-  .pub-card:hover { border-color: var(--border-strong); background: var(--surface-2); transform: translateY(-3px); }
-  .pub-index {
-    font-family: var(--serif);
-    font-size: 15px;
-    color: var(--muted-2);
-    padding-top: 4px;
-    min-width: 26px;
-  }
-  .pub-main { min-width: 0; }
-  .pub-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
-  .badge {
-    font-size: 11px; font-weight: 600; letter-spacing: 0.04em;
-    padding: 4px 11px; border-radius: 100px;
-    background: var(--accent-soft); color: var(--accent);
-    border: 1px solid rgba(94,234,212,0.2);
-  }
-  .badge.alt { background: rgba(129,140,248,0.12); color: #a5adf9; border-color: rgba(129,140,248,0.22); }
-  .badge.neutral { background: var(--surface-2); color: var(--muted); border-color: var(--border); }
-  .pub-title {
-    font-family: var(--serif);
-    font-size: 21px;
-    font-weight: 500;
-    line-height: 1.3;
-    letter-spacing: -0.01em;
-    margin-bottom: 10px;
-  }
-  .pub-meta { font-size: 13.5px; color: var(--muted-2); margin-bottom: 14px; }
-  .pub-meta .journal { color: var(--accent); font-style: italic; }
-  .pub-abstract { font-size: 14.5px; color: var(--muted); line-height: 1.7; font-weight: 300; }
-  .pub-authors { font-size: 13px; color: var(--muted-2); margin-top: 12px; }
-  .pub-authors b { color: var(--text); font-weight: 600; }
-  .pub-arrow {
-    color: var(--muted-2);
-    font-size: 22px;
-    transition: transform 0.25s, color 0.25s;
-    padding-top: 2px;
-  }
-  .pub-card:hover .pub-arrow { color: var(--accent); transform: translate(3px, -3px); }
+  /* ENTRY (research) */
+  .entry { display: grid; grid-template-columns: 64px 1fr auto; gap: 28px; align-items: start; padding: 30px 0; border-bottom: 1px solid var(--line); text-decoration: none; color: inherit; transition: padding .25s; }
+  .entry:hover { padding-left: 10px; }
+  .entry:first-of-type { border-top: 1px solid var(--line); }
+  .entry-num { font-family: var(--serif); font-size: 22px; color: var(--accent); }
+  .entry-date { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+  .entry-title { font-family: var(--serif); font-size: 25px; line-height: 1.2; margin-bottom: 8px; }
+  .entry-inst { font-size: 14.5px; color: var(--accent); font-style: italic; margin-bottom: 12px; }
+  .entry-desc { font-size: 15px; color: var(--ink-soft); font-weight: 300; line-height: 1.7; max-width: 640px; }
+  .entry-authors { font-size: 13px; color: var(--muted); margin-top: 10px; }
+  .entry-authors b { color: var(--ink); font-weight: 500; }
+  .entry-arrow { font-size: 20px; color: var(--muted); transition: transform .25s, color .25s; }
+  .entry:hover .entry-arrow { color: var(--accent); transform: translate(3px,-3px); }
 
-  /* ---------- TWO-COL GRID (impact / writing) ---------- */
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-  .tile {
-    padding: 30px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    transition: border-color 0.25s, background 0.25s, transform 0.25s;
-    text-decoration: none;
-    color: inherit;
-    display: block;
-  }
-  .tile:hover { border-color: var(--border-strong); background: var(--surface-2); transform: translateY(-3px); }
-  .tile-icon {
-    width: 46px; height: 46px;
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 22px;
-    background: var(--accent-soft);
-    border: 1px solid rgba(94,234,212,0.2);
-    margin-bottom: 18px;
-  }
-  .tile-role { font-size: 12.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
-  .tile-title { font-family: var(--serif); font-size: 22px; font-weight: 500; line-height: 1.25; margin-bottom: 10px; letter-spacing: -0.01em; }
-  .tile-text { font-size: 14.5px; color: var(--muted); font-weight: 300; line-height: 1.7; }
-  .tile-link { display: inline-flex; align-items: center; gap: 7px; margin-top: 16px; font-size: 13.5px; font-weight: 500; color: var(--accent); }
-  .tile-link span { transition: transform 0.2s; }
-  .tile:hover .tile-link span { transform: translateX(4px); }
+  /* VENTURES */
+  .vent-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+  .vent-card { background: var(--bg-card); border: 1px solid var(--line); border-radius: 8px; padding: 28px; text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: border-color .25s, transform .25s; min-height: 250px; }
+  .vent-card:hover { border-color: var(--line-strong); transform: translateY(-4px); }
+  .vent-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 18px; }
+  .vent-role { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+  .vent-year { font-size: 13px; color: var(--muted); }
+  .vent-title { font-family: var(--serif); font-size: 26px; line-height: 1.15; margin-bottom: 12px; }
+  .vent-desc { font-size: 14.5px; color: var(--ink-soft); font-weight: 300; line-height: 1.65; flex: 1; }
+  .vent-link { margin-top: 18px; font-size: 14px; font-weight: 500; display: inline-flex; gap: 6px; }
+  .vent-link span { transition: transform .2s; }
+  .vent-card:hover .vent-link span { transform: translateX(4px); }
 
-  /* ---------- WRITING ---------- */
-  .write-card { display: flex; flex-direction: column; }
-  .write-card .tile-title { font-size: 19px; }
-  .write-date { font-size: 12.5px; color: var(--muted-2); margin-bottom: 14px; letter-spacing: 0.03em; }
+  /* LEADERSHIP */
+  .lead-row { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: baseline; padding: 22px 0; border-bottom: 1px solid var(--line); }
+  .lead-row:first-child { border-top: 1px solid var(--line); }
+  .lr-title { font-family: var(--serif); font-size: 23px; line-height: 1.25; }
+  .lr-org { font-size: 15px; color: var(--ink-soft); font-weight: 300; margin-top: 3px; }
+  .lead-date { font-size: 13.5px; color: var(--muted); white-space: nowrap; }
 
-  /* ---------- RECOGNITION ---------- */
-  .recog-list { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--border); }
-  .recog-item {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 22px;
-    align-items: center;
-    padding: 24px 8px;
-    border-bottom: 1px solid var(--border);
-    text-decoration: none;
-    color: inherit;
-    transition: padding 0.25s, background 0.25s;
-  }
-  .recog-item:hover { background: var(--surface); padding-left: 16px; padding-right: 16px; }
-  .recog-kind { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); min-width: 110px; }
-  .recog-title { font-family: var(--serif); font-size: 19px; font-weight: 500; line-height: 1.3; }
-  .recog-title .sub { display: block; font-family: var(--sans); font-size: 13.5px; color: var(--muted); font-weight: 300; margin-top: 4px; }
-  .recog-arrow { color: var(--muted-2); font-size: 18px; transition: transform 0.2s, color 0.2s; }
-  .recog-item:hover .recog-arrow { color: var(--accent); transform: translate(3px,-3px); }
+  /* WRITING */
+  .write-row { display: grid; grid-template-columns: 150px 1fr auto; gap: 28px; align-items: baseline; padding: 28px 0; border-bottom: 1px solid var(--line); text-decoration: none; color: inherit; transition: padding .25s; }
+  .write-row:first-of-type { border-top: 1px solid var(--line); }
+  .write-row:hover { padding-left: 10px; }
+  .write-meta { font-size: 13px; color: var(--muted); }
+  .write-title { font-family: var(--serif); font-size: 24px; line-height: 1.25; margin-bottom: 8px; }
+  .write-excerpt { font-size: 14.5px; color: var(--ink-soft); font-weight: 300; line-height: 1.65; max-width: 600px; }
+  .write-arrow { font-size: 18px; color: var(--muted); transition: transform .25s, color .25s; }
+  .write-row:hover .write-arrow { color: var(--accent); transform: translate(3px,-3px); }
 
-  /* ---------- ABOUT ---------- */
-  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
-  .about-text p { font-size: 16.5px; color: var(--muted); font-weight: 300; line-height: 1.85; margin-bottom: 18px; }
-  .about-text p strong { color: var(--text); font-weight: 500; }
-  .about-side { display: flex; flex-direction: column; gap: 14px; }
-  .about-fact {
-    padding: 20px 22px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-  }
-  .about-fact .k { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted-2); margin-bottom: 6px; }
-  .about-fact .v { font-size: 15.5px; color: var(--text); font-weight: 400; }
-  .about-fact .v .accent { color: var(--accent); }
+  /* OFF THE CLOCK */
+  .off-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 16px; }
+  .off-card { background: var(--bg-card); border: 1px solid var(--line); border-radius: 8px; padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+  .off-photo { width: 100%; aspect-ratio: 16/10; background: linear-gradient(160deg,#ece8df,#ddd8cc); position: relative; overflow: hidden; }
+  .off-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .off-photo .ph { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--muted); }
+  .off-body { padding: 24px 26px; flex: 1; display: flex; flex-direction: column; }
+  .off-icon { font-size: 22px; margin-bottom: 12px; }
+  .off-title { font-family: var(--serif); font-size: 22px; margin-bottom: 6px; }
+  .off-text { font-size: 14.5px; color: var(--ink-soft); font-weight: 300; line-height: 1.6; flex: 1; }
+  .off-link { margin-top: 14px; font-size: 13.5px; font-weight: 500; color: var(--accent); display: inline-flex; gap: 6px; text-decoration: none; }
 
-  /* ---------- CONTACT ---------- */
-  .contact {
-    text-align: center;
-    border: 1px solid var(--border);
-    border-radius: 28px;
-    padding: 70px 40px;
-    background:
-      radial-gradient(70% 120% at 50% 0%, rgba(94,234,212,0.08), transparent 60%),
-      var(--surface);
-    position: relative;
-    overflow: hidden;
-  }
-  .contact h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(32px, 5vw, 52px); letter-spacing: -0.02em; line-height: 1.05; margin-bottom: 18px; }
-  .contact h2 em { font-style: italic; color: var(--accent); }
-  .contact p { color: var(--muted); font-size: 17px; font-weight: 300; max-width: 480px; margin: 0 auto 34px; }
-  .contact-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  /* CONTACT */
+  .contact-inner { text-align: center; padding: 20px 0 10px; }
+  h2.contact-head { font-family: var(--serif); font-weight: 400; font-size: clamp(36px,6vw,68px); line-height: 1.04; margin-bottom: 20px; }
+  h2.contact-head em { font-style: italic; color: var(--accent); }
+  .contact-sub { font-size: 18px; color: var(--ink-soft); font-weight: 300; max-width: 480px; margin: 0 auto 34px; }
+  .contact-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
-  /* ---------- FOOTER ---------- */
-  footer {
-    padding: 40px 0;
-    border-top: 1px solid var(--border);
-    margin-top: 40px;
-  }
-  .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-  .footer-inner p { font-size: 13px; color: var(--muted-2); }
-  .footer-links { display: flex; gap: 22px; }
-  .footer-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
-  .footer-links a:hover { color: var(--accent); }
+  /* FOOTER */
+  footer { padding: 40px 0; border-top: 1px solid var(--line); }
+  .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
+  .footer-inner p { font-size: 13px; color: var(--muted); }
+  .footer-inner .fl { display: flex; gap: 22px; }
+  .footer-inner .fl a { font-size: 13px; color: var(--ink-soft); text-decoration: none; transition: color .2s; }
+  .footer-inner .fl a:hover { color: var(--accent); }
 
-  /* ---------- REVEAL ANIMATION ---------- */
-  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(.2,.7,.2,1), transform 0.7s cubic-bezier(.2,.7,.2,1); }
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
   .reveal.in { opacity: 1; transform: none; }
-  .reveal.d1 { transition-delay: 0.07s; }
-  .reveal.d2 { transition-delay: 0.14s; }
-  .reveal.d3 { transition-delay: 0.21s; }
+  .d1 { transition-delay: .08s; } .d2 { transition-delay: .16s; } .d3 { transition-delay: .24s; }
 
-  /* ---------- RESPONSIVE ---------- */
   @media (max-width: 880px) {
-    .hero-grid { grid-template-columns: 1fr; gap: 50px; }
-    .portrait-wrap { order: -1; }
-    .stats { grid-template-columns: repeat(2, 1fr); }
-    .grid-2 { grid-template-columns: 1fr; }
-    .about-grid { grid-template-columns: 1fr; gap: 36px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 44px; }
+    .portrait-wrap { max-width: 320px; }
+    .glance-grid { grid-template-columns: 1fr; gap: 36px; }
+    .vent-grid, .off-grid { grid-template-columns: 1fr; }
+    .entry { grid-template-columns: 1fr; gap: 6px; } .entry-num, .entry-arrow { display: none; }
+    .write-row { grid-template-columns: 1fr; gap: 8px; } .write-arrow { display: none; }
     .nav-links { display: none; }
-    .nav-links.open {
-      display: flex; flex-direction: column;
-      position: absolute; top: 64px; left: 16px; right: 16px;
-      background: var(--bg-2); border: 1px solid var(--border);
-      border-radius: 16px; padding: 20px; gap: 18px;
-    }
+    .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 62px; left: 16px; right: 16px; background: var(--bg-card); border: 1px solid var(--line); border-radius: 12px; padding: 20px; gap: 16px; }
     .menu-toggle { display: block; }
-    .pub-card { grid-template-columns: 1fr; gap: 14px; }
-    .pub-index, .pub-arrow { display: none; }
-    .recog-item { grid-template-columns: 1fr; gap: 8px; }
-    .recog-arrow { display: none; }
   }
 </style>
 </head>
 <body>
 
-<div class="bg-glow"></div>
-<div class="grain"></div>
-
-<!-- NAV -->
 <nav id="nav">
   <div class="nav-inner">
-    <a href="#top" class="brand"><span class="dot"></span> Vedaant Mutha</a>
+    <a href="#top" class="brand">Vedaant Mutha</a>
     <div class="nav-links" id="navLinks">
-      <a href="#research">Research</a>
-      <a href="#impact">Impact</a>
-      <a href="#writing">Writing</a>
       <a href="#about">About</a>
-      <a href="#contact" class="nav-cta">Get in touch</a>
+      <a href="#research">Research</a>
+      <a href="#ventures">Ventures</a>
+      <a href="#leadership">Leadership</a>
+      <a href="#writing">Writing</a>
+      <a href="#contact">Contact</a>
     </div>
     <button class="menu-toggle" id="menuToggle" aria-label="Menu">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
     </button>
   </div>
 </nav>
@@ -519,242 +200,242 @@
 <!-- HERO -->
 <header class="hero" id="top">
   <div class="wrap">
+    <div class="loc-badge reveal in"><span class="d"></span> Gainesville, FL · University of Florida</div>
     <div class="hero-grid">
       <div>
-        <div class="eyebrow reveal in"><span class="pulse"></span> Pre-Medical Student · University of Florida</div>
-        <h1 class="hero-name reveal in d1">Vedaant<br/><em>Mutha</em></h1>
-        <p class="hero-sub reveal in d2">
-          Researcher and advocate working at the intersection of <strong>medicine, healthcare access, and economics</strong> — from peer-reviewed immunology research to bringing care to people experiencing homelessness.
-        </p>
-        <div class="hero-actions reveal in d3">
-          <a href="#research" class="btn btn-primary">View research →</a>
-          <a href="#contact" class="btn btn-ghost">Get in touch</a>
+        <h1 class="hero-head reveal in d1">Hi, I'm Vedaant. I like medicine, business, and a good <em>5K.</em></h1>
+        <p class="hero-bio reveal in d2">I'm a student at the University of Florida studying biology and economics. I do research, help run a few organizations, and spend most of my free time running and playing pickleball. Always looking for new things to learn and good people to work with.</p>
+        <div class="hero-actions reveal in d2">
+          <a href="#research" class="btn btn-solid">See my work</a>
+          <a href="mailto:muthavedaant@gmail.com" class="btn btn-line">muthavedaant@gmail.com →</a>
         </div>
       </div>
-      <div class="portrait-wrap reveal in d2">
+      <div class="portrait-wrap reveal in d3">
         <div class="portrait">
-          <div class="monogram">VM</div>
-          <div class="ph-note">Drop a photo here</div>
-        </div>
-        <div class="portrait-badge">
-          <div class="pb-num">2</div>
-          <div class="pb-label">Peer-reviewed<br/>publications</div>
+          <img src="assets/headshot.jpg" alt="Vedaant Mutha" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="fallback" style="display:none;"><div class="mono">VM</div></div>
         </div>
       </div>
-    </div>
-
-    <div class="stats reveal">
-      <div class="stat"><div class="num">2</div><div class="lbl">Peer-reviewed papers</div></div>
-      <div class="stat"><div class="num">198</div><div class="lbl">Research participants</div></div>
-      <div class="stat"><div class="num">40+</div><div class="lbl">H4H chapters nationwide</div></div>
-      <div class="stat"><div class="num">3+</div><div class="lbl">Organizations led</div></div>
     </div>
   </div>
 </header>
 
-<!-- RESEARCH -->
-<section id="research">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="section-eyebrow">Research &amp; Publications</div>
-      <h2 class="section-title">Published, peer-reviewed science.</h2>
-      <p class="section-desc">Co-authored work in immunology, gene therapy, and healthcare equity — from systems-biology reviews to original survey research on access to care.</p>
-    </div>
-
-    <div class="pub-list">
-
-      <a href="https://pubmed.ncbi.nlm.nih.gov/42193171/" target="_blank" rel="noopener" class="pub-card reveal">
-        <div class="pub-index">01</div>
-        <div class="pub-main">
-          <div class="pub-tags">
-            <span class="badge">Peer-Reviewed</span>
-            <span class="badge alt">Machine Learning</span>
-            <span class="badge neutral">2026</span>
-          </div>
-          <div class="pub-title">Oxidative-Stress-Associated Molecular Signatures in Immune-Mediated Diseases: A Systematic Review Integrating Machine Learning and Systems Biology Approaches</div>
-          <div class="pub-meta"><span class="journal">Antioxidants (Basel)</span> · April 2026 · PMID 42193171</div>
-          <div class="pub-abstract">A systematic review examining computational analyses of oxidative-stress data across multiple sclerosis, lupus, rheumatoid arthritis, Sjögren's syndrome, and IBD — identifying regulatory genes with applications in biomarker discovery and targeted therapy.</div>
-          <div class="pub-authors">Mittal R, Valerio EA, <b>Mutha V</b>, Raj A, Hirani K</div>
-        </div>
-        <div class="pub-arrow">↗</div>
-      </a>
-
-      <a href="https://pubmed.ncbi.nlm.nih.gov/40539567/" target="_blank" rel="noopener" class="pub-card reveal">
-        <div class="pub-index">02</div>
-        <div class="pub-main">
-          <div class="pub-tags">
-            <span class="badge">Peer-Reviewed</span>
-            <span class="badge alt">Gene Therapy</span>
-            <span class="badge neutral">2025</span>
-          </div>
-          <div class="pub-title">Emerging Role of Gene Therapy in Immune Modulation and Beta-Cell Preservation in Type 1 Diabetes</div>
-          <div class="pub-meta"><span class="journal">Journal of Drug Targeting</span> · Dec 2025 · 33(10):1699–1717 · PMID 40539567</div>
-          <div class="pub-abstract">A review synthesizing preclinical and clinical evidence on viral and non-viral gene-delivery systems — including CRISPR/Cas9 — for preserving pancreatic β-cells and restoring immune tolerance in Type 1 diabetes.</div>
-          <div class="pub-authors">Mittal R, <b>Mutha V</b>, Valerio EA, Hirani K, Arevalo G, Panchal A, Mittal M, Lemos JRN, Hirani K</div>
-        </div>
-        <div class="pub-arrow">↗</div>
-      </a>
-
-      <a href="https://www.thepowerofthepatient.org/" target="_blank" rel="noopener" class="pub-card reveal">
-        <div class="pub-index">03</div>
-        <div class="pub-main">
-          <div class="pub-tags">
-            <span class="badge">Original Research</span>
-            <span class="badge alt">Health Equity</span>
-            <span class="badge neutral">Survey Study</span>
-          </div>
-          <div class="pub-title">The Right to Thrive: Championing Healthcare Accessibility for a Stronger Generation</div>
-          <div class="pub-meta"><span class="journal">Florida Atlantic University</span> · Independent survey research</div>
-          <div class="pub-abstract">An original 17-question survey of 198 adults analyzing barriers to healthcare access. Findings showed transportation, affordability, and lack of insurance as the most prevalent barriers — with statistically significant differences by income and gender (χ² analysis, p&lt;.01).</div>
-          <div class="pub-authors"><b>Vedaant Mutha</b> · Sole author</div>
-        </div>
-        <div class="pub-arrow">↗</div>
-      </a>
-
-    </div>
-  </div>
-</section>
-
-<!-- IMPACT -->
-<section id="impact">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="section-eyebrow">Impact &amp; Leadership</div>
-      <h2 class="section-title">Turning research into care.</h2>
-      <p class="section-desc">Building organizations that put health equity into practice — meeting underserved communities where they are.</p>
-    </div>
-
-    <div class="grid-2">
-      <a href="https://hhgainesville-cloud.github.io/h4hwebsite/" target="_blank" rel="noopener" class="tile reveal">
-        <div class="tile-icon">❤️</div>
-        <div class="tile-role">Medical Information Director</div>
-        <div class="tile-title">Hearts for the Homeless — Gainesville</div>
-        <div class="tile-text">Leads health outreach for unhoused residents of Gainesville: free blood-pressure and BMI screenings, hygiene kits, and referrals to local clinics. Part of an international nonprofit spanning 40+ chapters, with data published in peer-reviewed journals and shared with policymakers.</div>
-        <div class="tile-link">Visit chapter site <span>→</span></div>
-      </a>
-
-      <a href="https://ufprepwebsite.vercel.app/" target="_blank" rel="noopener" class="tile reveal d1">
-        <div class="tile-icon">🔬</div>
-        <div class="tile-role">Research · University of Florida</div>
-        <div class="tile-title">UF PREP — Pre-Health Research &amp; Equity Partnership</div>
-        <div class="tile-text">A student-led research organization advancing undergraduate scholarship on the social determinants of health. 50+ members, 12 published works, and 40+ poster presentations at FURC 2026 across public health, epidemiology, and clinical research.</div>
-        <div class="tile-link">Explore PREP <span>→</span></div>
-      </a>
-
-      <a href="https://palmbeachmedicalcenter.com/" target="_blank" rel="noopener" class="tile reveal">
-        <div class="tile-icon">🩺</div>
-        <div class="tile-role">Clinical Experience</div>
-        <div class="tile-title">Palm Beach Medical Center</div>
-        <div class="tile-text">Clinical exposure at a West Palm Beach cardiology and internal-medicine practice with over 44 years serving the community — gaining first-hand insight into patient care, diagnostics, and chronic disease management.</div>
-        <div class="tile-link">View practice <span>→</span></div>
-      </a>
-
-      <a href="https://www.alligator.org/article/2026/04/campus-group-helps-homless-community" target="_blank" rel="noopener" class="tile reveal d1">
-        <div class="tile-icon">📰</div>
-        <div class="tile-role">In the Press</div>
-        <div class="tile-title">Featured in The Independent Florida Alligator</div>
-        <div class="tile-text">"We want to serve the underserved population in Gainesville." Profiled for leading Hearts for the Homeless outreach — where 95% of surveyed local homeless residents reported difficulty accessing healthcare.</div>
-        <div class="tile-link">Read the article <span>→</span></div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- WRITING -->
-<section id="writing">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="section-eyebrow">Writing</div>
-      <h2 class="section-title">On medicine &amp; markets.</h2>
-      <p class="section-desc">Essays exploring the business of healthcare — biosimilars, access, and the economics of treatment.</p>
-    </div>
-
-    <div class="grid-2">
-      <a href="https://medium.com/@muthavedaant" target="_blank" rel="noopener" class="tile write-card reveal">
-        <div class="write-date">Aug 12, 2025 · Medium</div>
-        <div class="tile-title">Humira and the Biosimilar Moment: How Adalimumab Alternatives Could Reshape Access</div>
-        <div class="tile-text">For nearly two decades, Humira changed the course of autoimmune medicine. A look at how biosimilar alternatives could reshape patient access and the economics of treatment.</div>
-        <div class="tile-link">Read on Medium <span>→</span></div>
-      </a>
-
-      <a href="https://medium.com/@muthavedaant" target="_blank" rel="noopener" class="tile write-card reveal d1">
-        <div class="write-date">Aug 10, 2025 · Medium</div>
-        <div class="tile-title">Zarxio: How Filgrastim's First Biosimilar Began the Biosim Revolution</div>
-        <div class="tile-text">In the world of medicine, innovation often takes the spotlight. The story of Zarxio — the pioneering biosimilar that opened the door to a new era of affordable biologics.</div>
-        <div class="tile-link">Read on Medium <span>→</span></div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- RECOGNITION -->
-<section id="recognition">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="section-eyebrow">Recognition &amp; Media</div>
-      <h2 class="section-title">Featured &amp; published.</h2>
-    </div>
-
-    <div class="recog-list">
-      <a href="https://www.alligator.org/article/2026/04/campus-group-helps-homless-community" target="_blank" rel="noopener" class="recog-item reveal">
-        <div class="recog-kind">Press</div>
-        <div class="recog-title">The Independent Florida Alligator
-          <span class="sub">Campus group helps homeless community — April 2026</span>
-        </div>
-        <div class="recog-arrow">↗</div>
-      </a>
-      <a href="https://www.iheart.com/podcast/263-once-an-owl-always-an-owl-100410407/" target="_blank" rel="noopener" class="recog-item reveal">
-        <div class="recog-kind">Podcast</div>
-        <div class="recog-title">Once an Owl, Always an Owl
-          <span class="sub">Florida Atlantic University Lab Schools alumni series</span>
-        </div>
-        <div class="recog-arrow">↗</div>
-      </a>
-      <a href="https://www.thepowerofthepatient.org/" target="_blank" rel="noopener" class="recog-item reveal">
-        <div class="recog-kind">Published</div>
-        <div class="recog-title">The Power of the Patient
-          <span class="sub">National Library of Patient Rights &amp; Advocacy</span>
-        </div>
-        <div class="recog-arrow">↗</div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
+<!-- 01 ABOUT -->
 <section id="about">
   <div class="wrap">
-    <div class="section-head reveal">
-      <div class="section-eyebrow">About</div>
-      <h2 class="section-title">Hi, I'm Vedaant.</h2>
-    </div>
-    <div class="about-grid">
-      <div class="about-text reveal">
-        <p>I'm a pre-medical student at the <strong>University of Florida</strong> studying <strong>Economics and Biology</strong> — a combination that shapes how I think about medicine: not just as science, but as a system people have to navigate to get well.</p>
-        <p>My research spans <strong>immunology and gene therapy</strong>, with peer-reviewed publications on oxidative stress in autoimmune disease and gene-therapy approaches to Type 1 diabetes. Alongside the lab work, I run original studies on <strong>healthcare access</strong> and lead outreach that brings screenings and care directly to people experiencing homelessness.</p>
-        <p>Whether I'm analyzing biosimilar economics, screening blood pressure at Grace Marketplace, or co-authoring a systematic review, the throughline is the same: <strong>everyone deserves the right to thrive.</strong></p>
+    <div class="sec-label reveal"><span class="sec-num">01</span><span class="sec-name">About</span></div>
+    <h2 class="sec-title reveal">A little about me.</h2>
+    <div class="glance-grid" style="margin-top:40px;">
+      <div class="reveal">
+        <p class="about-lead">I grew up in South Florida and went to the FAU Lab Schools before coming to UF. I'm pre-med, but I've always been curious about the business side of healthcare too, which is part of why I picked up economics. Outside of school I run a research organization I co-founded, do consulting work, volunteer with people experiencing homelessness, and try to get a run in whenever I can.</p>
+        <p class="about-lead">If any of this overlaps with what you're working on, I'd love to talk.</p>
       </div>
-      <div class="about-side reveal d1">
-        <div class="about-fact"><div class="k">Education</div><div class="v">University of Florida<br/><span class="accent">B.S. Economics &amp; Biology</span></div></div>
-        <div class="about-fact"><div class="k">Focus Areas</div><div class="v">Immunology · Health Equity · Healthcare Economics</div></div>
-        <div class="about-fact"><div class="k">Alma Mater</div><div class="v">FAU Lab Schools <span class="accent">· Once an Owl, Always an Owl</span></div></div>
-        <div class="about-fact"><div class="k">Currently</div><div class="v">Research, outreach &amp; writing on access to care</div></div>
+      <div class="facts reveal d1">
+        <div class="fact-row"><div class="fact-k">University</div><div class="fact-v">University of Florida</div></div>
+        <div class="fact-row"><div class="fact-k">Studying</div><div class="fact-v"><span class="accent">Biology</span> and <span class="accent">Economics</span></div></div>
+        <div class="fact-row"><div class="fact-k">Languages</div><div class="fact-v">English, Hindi</div></div>
+        <div class="fact-row"><div class="fact-k">Honors</div><div class="fact-v">Florida Academic Scholar, Florida Merit Scholarship</div></div>
+        <div class="fact-row"><div class="fact-k">Off campus</div><div class="fact-v">Running, pickleball, tennis, basketball</div></div>
+      </div>
+    </div>
+    <div class="stat-cards reveal" style="grid-template-columns:repeat(4,1fr); margin-top:32px;">
+      <div class="stat-card"><div class="n">2</div><div class="l">Peer-reviewed publications</div></div>
+      <div class="stat-card"><div class="n">198</div><div class="l">Participants in my survey study</div></div>
+      <div class="stat-card"><div class="n">50+</div><div class="l">Members in the org I co-founded</div></div>
+      <div class="stat-card"><div class="n">8</div><div class="l">Honors and awards</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 RESEARCH -->
+<section id="research">
+  <div class="wrap">
+    <div class="sec-label reveal"><span class="sec-num">02</span><span class="sec-name">Research</span></div>
+    <h2 class="sec-title reveal">Research I've worked on.</h2>
+    <p class="sec-intro reveal">A mix of lab and literature work in immunology and gene therapy, plus my own survey study on healthcare access.</p>
+
+    <div style="margin-top:36px;">
+      <a href="https://pubmed.ncbi.nlm.nih.gov/42193171/" target="_blank" rel="noopener" class="entry reveal">
+        <div class="entry-num">01</div>
+        <div>
+          <div class="entry-date">2026 · Antioxidants (Basel) · PMID 42193171</div>
+          <div class="entry-title">Oxidative-Stress Molecular Signatures in Immune-Mediated Diseases</div>
+          <div class="entry-inst">University of Miami Diabetes Research Institute · Research Trainee</div>
+          <div class="entry-desc">A peer-reviewed systematic review that used machine learning and systems biology to study oxidative stress across multiple sclerosis, lupus, rheumatoid arthritis, Sjögren's syndrome, and IBD, pointing to genes useful for biomarkers and targeted therapy.</div>
+          <div class="entry-authors">Mittal R, Valerio EA, <b>Mutha V</b>, Raj A, Hirani K</div>
+        </div>
+        <div class="entry-arrow">↗</div>
+      </a>
+
+      <a href="https://pubmed.ncbi.nlm.nih.gov/40539567/" target="_blank" rel="noopener" class="entry reveal">
+        <div class="entry-num">02</div>
+        <div>
+          <div class="entry-date">2025 · Journal of Drug Targeting · PMID 40539567</div>
+          <div class="entry-title">Gene Therapy for Beta-Cell Preservation in Type 1 Diabetes</div>
+          <div class="entry-inst">University of Miami Diabetes Research Institute · Research Trainee</div>
+          <div class="entry-desc">A peer-reviewed review of viral and non-viral gene-delivery approaches, including CRISPR, for protecting pancreatic beta cells and restoring immune balance in Type 1 diabetes.</div>
+          <div class="entry-authors">Mittal R, <b>Mutha V</b>, Valerio EA, Hirani K, Arevalo G, Panchal A, Mittal M, Lemos JRN, Hirani K</div>
+        </div>
+        <div class="entry-arrow">↗</div>
+      </a>
+
+      <a href="https://www.thepowerofthepatient.org/" target="_blank" rel="noopener" class="entry reveal">
+        <div class="entry-num">03</div>
+        <div>
+          <div class="entry-date">Florida Atlantic University · Original survey research</div>
+          <div class="entry-title">The Right to Thrive: Healthcare Accessibility for a Stronger Generation</div>
+          <div class="entry-inst">Sole author · 198 participants · chi-square analysis, p&lt;.01</div>
+          <div class="entry-desc">A survey I designed and ran to study what keeps people from getting care. Transportation, affordability, and lack of insurance came up most often, and the barriers differed in meaningful ways by income and gender.</div>
+          <div class="entry-authors"><b>Vedaant Mutha</b></div>
+        </div>
+        <div class="entry-arrow">↗</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 03 VENTURES -->
+<section id="ventures">
+  <div class="wrap">
+    <div class="sec-label reveal"><span class="sec-num">03</span><span class="sec-name">Ventures &amp; Projects</span></div>
+    <h2 class="sec-title reveal">Things I've helped build.</h2>
+    <div class="vent-grid" style="margin-top:36px;">
+
+      <a href="https://ufprepwebsite.vercel.app/" target="_blank" rel="noopener" class="vent-card reveal">
+        <div class="vent-top"><span class="vent-role">Founder &amp; Co-President</span><span class="vent-year">2025</span></div>
+        <div class="vent-title">UF PREP</div>
+        <div class="vent-desc">I co-founded the Pre-Health Research and Equity Partnership, a student research organization at UF focused on the social determinants of health. It now has 50+ members, a dozen published works, and 40+ posters at FURC 2026.</div>
+        <div class="vent-link" style="color:var(--accent);">Visit site <span>→</span></div>
+      </a>
+
+      <a href="https://palmbeachmedicalcenter.com/" target="_blank" rel="noopener" class="vent-card reveal d1">
+        <div class="vent-top"><span class="vent-role">Strategist</span><span class="vent-year">2025</span></div>
+        <div class="vent-title">Rem and Company</div>
+        <div class="vent-desc">Consulting work, from a healthcare private equity client to pro bono projects for local businesses and nonprofits. One of those projects was building the website for Palm Beach Medical Center.</div>
+        <div class="vent-link" style="color:var(--accent);">See a client site <span>→</span></div>
+      </a>
+
+      <a href="https://hhgainesville-cloud.github.io/h4hwebsite/" target="_blank" rel="noopener" class="vent-card reveal d2">
+        <div class="vent-top"><span class="vent-role">Medical Info Director</span><span class="vent-year">2024</span></div>
+        <div class="vent-title">Hearts for the Homeless</div>
+        <div class="vent-desc">I help run the Gainesville chapter, giving free blood pressure screenings and connecting people to clinics. We table weekly at City Hall and Grace Marketplace, and our data gets shared with researchers and policymakers.</div>
+        <div class="vent-link" style="color:var(--accent);">Visit site <span>→</span></div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- 04 LEADERSHIP -->
+<section id="leadership">
+  <div class="wrap">
+    <div class="sec-label reveal"><span class="sec-num">04</span><span class="sec-name">Leadership</span></div>
+    <h2 class="sec-title reveal">Where else I spend my time.</h2>
+    <div style="margin-top:36px;">
+      <div class="lead-row reveal">
+        <div><div class="lr-title">Medical Information Director</div><div class="lr-org">Hearts for the Homeless, Gainesville</div></div>
+        <div class="lead-date">Aug 2024 - Present</div>
+      </div>
+      <div class="lead-row reveal">
+        <div><div class="lr-title">Navi-Gator</div><div class="lr-org">Norman Fixel Institute for Neurological Diseases, UF Health</div></div>
+        <div class="lead-date">Aug 2025 - Present</div>
+      </div>
+      <div class="lead-row reveal">
+        <div><div class="lr-title">Assistant Director of Interfaith Affairs</div><div class="lr-org">University of Florida Student Government Cabinet</div></div>
+        <div class="lead-date">Aug 2025 - May 2026</div>
+      </div>
+      <div class="lead-row reveal">
+        <div><div class="lr-title">Assistant Treasurer</div><div class="lr-org">Hindu YUVA at UF</div></div>
+        <div class="lead-date">Aug 2025 - May 2026</div>
+      </div>
+      <div class="lead-row reveal">
+        <div><div class="lr-title">Treasurer</div><div class="lr-org">Inter-Residence Hall Association, Infinity Hall</div></div>
+        <div class="lead-date">Sep 2024 - May 2025</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
+<!-- 05 WRITING -->
+<section id="writing">
+  <div class="wrap">
+    <div class="sec-label reveal"><span class="sec-num">05</span><span class="sec-name">Writing</span></div>
+    <h2 class="sec-title reveal">Some things I've written.</h2>
+    <p class="sec-intro reveal">I write on Medium, mostly about biosimilars and how the business of medicine affects what patients can actually get.</p>
+    <div style="margin-top:36px;">
+      <a href="https://medium.com/@muthavedaant" target="_blank" rel="noopener" class="write-row reveal">
+        <div class="write-meta">Aug 12, 2025<br/>Medium</div>
+        <div>
+          <div class="write-title">Humira and the Biosimilar Moment</div>
+          <div class="write-excerpt">For nearly two decades, Humira changed the course of autoimmune medicine. A look at how its alternatives could change who gets access, and at what cost.</div>
+        </div>
+        <div class="write-arrow">↗</div>
+      </a>
+      <a href="https://medium.com/@muthavedaant" target="_blank" rel="noopener" class="write-row reveal">
+        <div class="write-meta">Aug 10, 2025<br/>Medium</div>
+        <div>
+          <div class="write-title">Zarxio: How Filgrastim's First Biosimilar Began the Revolution</div>
+          <div class="write-excerpt">The story of the first biosimilar approved in the US, and how it opened the door to more affordable biologics.</div>
+        </div>
+        <div class="write-arrow">↗</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 06 OFF THE CLOCK -->
+<section id="off">
+  <div class="wrap">
+    <div class="sec-label reveal"><span class="sec-num">06</span><span class="sec-name">Off the Clock</span></div>
+    <h2 class="sec-title reveal">Outside of class.</h2>
+    <div class="off-grid reveal" style="margin-top:36px;">
+
+      <div class="off-card">
+        <div class="off-photo">
+          <img src="assets/running.jpg" alt="Vedaant running a 5K" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="ph" style="display:none;">Save photo to assets/running.jpg</div>
+        </div>
+        <div class="off-body">
+          <div class="off-title">Running</div>
+          <div class="off-text">I race 5Ks around Florida and run most mornings. It's how I clear my head.</div>
+          <a href="https://strava.app.link/gch4QItK13b" target="_blank" rel="noopener" class="off-link">Follow on Strava →</a>
+        </div>
+      </div>
+
+      <div class="off-card">
+        <div class="off-body" style="padding-top:26px;">
+          <div class="off-icon">🥒</div>
+          <div class="off-title">Pickleball</div>
+          <div class="off-text">Always down for a game. You can check my rating on DUPR.</div>
+          <a href="https://dashboard.dupr.com/dashboard/player/5074440404/profile" target="_blank" rel="noopener" class="off-link">View DUPR profile →</a>
+        </div>
+      </div>
+
+      <div class="off-card">
+        <div class="off-body" style="padding-top:26px;">
+          <div class="off-icon">🎾</div>
+          <div class="off-title">Tennis &amp; Basketball</div>
+          <div class="off-text">Two more ways I stay active and end up competing with friends most weekends.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 07 CONTACT -->
 <section id="contact">
   <div class="wrap">
-    <div class="contact reveal">
-      <h2>Let's <em>connect.</em></h2>
-      <p>Open to research collaborations, advocacy work, and conversations about medicine and access.</p>
+    <div class="sec-label reveal"><span class="sec-num">07</span><span class="sec-name">Contact</span></div>
+    <div class="contact-inner reveal">
+      <h2 class="contact-head">Let's <em>connect.</em></h2>
+      <p class="contact-sub">I'm always open to research, new opportunities, and good conversations. The fastest way to reach me is email.</p>
       <div class="contact-links">
-        <a href="mailto:muthavedaant@gmail.com" class="btn btn-primary">✉ Email me</a>
-        <a href="https://medium.com/@muthavedaant" target="_blank" rel="noopener" class="btn btn-ghost">Medium</a>
-        <a href="https://pubmed.ncbi.nlm.nih.gov/?term=Mutha+Vedaant" target="_blank" rel="noopener" class="btn btn-ghost">PubMed</a>
-        <a href="#" class="btn btn-ghost" id="linkedinBtn">LinkedIn</a>
+        <a href="mailto:muthavedaant@gmail.com" class="btn btn-solid">✉ Email me</a>
+        <a href="https://www.linkedin.com/in/vedaant-mutha/" target="_blank" rel="noopener" class="btn btn-line">LinkedIn</a>
+        <a href="assets/Vedaant-Mutha-Resume.pdf" target="_blank" rel="noopener" class="btn btn-line">Resume</a>
+        <a href="https://medium.com/@muthavedaant" target="_blank" rel="noopener" class="btn btn-line">Medium</a>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/?term=Mutha+Vedaant" target="_blank" rel="noopener" class="btn btn-line">PubMed</a>
       </div>
     </div>
   </div>
@@ -762,10 +443,10 @@
 
 <footer>
   <div class="wrap footer-inner">
-    <p>© 2026 Vedaant Mutha. Built with care.</p>
-    <div class="footer-links">
+    <p>© 2026 Vedaant Mutha · Gainesville, FL</p>
+    <div class="fl">
       <a href="#research">Research</a>
-      <a href="#impact">Impact</a>
+      <a href="#ventures">Ventures</a>
       <a href="#writing">Writing</a>
       <a href="#contact">Contact</a>
     </div>
@@ -773,44 +454,26 @@
 </footer>
 
 <script>
-  // Nav scroll state
   const nav = document.getElementById('nav');
   const sections = [...document.querySelectorAll('section[id], header[id]')];
-  const navAnchors = [...document.querySelectorAll('.nav-links a:not(.nav-cta)')];
-
+  const navAnchors = [...document.querySelectorAll('.nav-links a')];
   function onScroll() {
-    nav.classList.toggle('scrolled', window.scrollY > 30);
-    let current = '';
-    const pos = window.scrollY + 140;
-    for (const s of sections) {
-      if (s.offsetTop <= pos) current = s.id;
-    }
-    navAnchors.forEach(a => {
-      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
-    });
+    nav.classList.toggle('scrolled', window.scrollY > 24);
+    let cur = '';
+    const pos = window.scrollY + 130;
+    for (const s of sections) if (s.offsetTop <= pos) cur = s.id;
+    navAnchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
   }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
-  // Mobile menu
-  const toggle = document.getElementById('menuToggle');
-  const links = document.getElementById('navLinks');
+  const toggle = document.getElementById('menuToggle'), links = document.getElementById('navLinks');
   toggle.addEventListener('click', () => links.classList.toggle('open'));
   links.addEventListener('click', e => { if (e.target.tagName === 'A') links.classList.remove('open'); });
 
-  // Reveal on scroll
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  const io = new IntersectionObserver((es) => {
+    es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.reveal:not(.in)').forEach(el => io.observe(el));
-
-  // LinkedIn placeholder
-  document.getElementById('linkedinBtn').addEventListener('click', (e) => {
-    e.preventDefault();
-    alert('Add your LinkedIn URL here — tell me your handle and I\'ll wire it up.');
-  });
 </script>
 </body>
 </html>
