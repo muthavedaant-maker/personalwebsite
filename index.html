@@ -1,1002 +1,815 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Portfolio</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vedaant Mutha — Researcher & Pre-Medical Student</title>
+<meta name="description" content="Vedaant Mutha — pre-medical student and researcher at the University of Florida working at the intersection of medicine, healthcare access, and economics." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+  :root {
+    --bg: #0a0d12;
+    --bg-2: #0d1118;
+    --surface: rgba(255, 255, 255, 0.035);
+    --surface-2: rgba(255, 255, 255, 0.06);
+    --border: rgba(255, 255, 255, 0.09);
+    --border-strong: rgba(255, 255, 255, 0.16);
+    --text: #f4f2ec;
+    --muted: #99a2ad;
+    --muted-2: #6b7480;
+    --accent: #5eead4;
+    --accent-2: #818cf8;
+    --accent-soft: rgba(94, 234, 212, 0.12);
+    --serif: 'Fraunces', Georgia, serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --maxw: 1080px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 90px; }
 
   body {
-    background: #008080;
-    font-family: 'Arial', sans-serif;
-    font-size: 11px;
-    height: 100vh;
-    overflow: hidden;
-    cursor: default;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
 
-  /* Desktop */
-  #desktop {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 28px;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    gap: 8px;
+  /* Background ambience */
+  .bg-glow {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(60% 50% at 15% 0%, rgba(94, 234, 212, 0.10) 0%, transparent 55%),
+      radial-gradient(55% 45% at 90% 10%, rgba(129, 140, 248, 0.10) 0%, transparent 55%),
+      radial-gradient(45% 40% at 50% 100%, rgba(94, 234, 212, 0.06) 0%, transparent 60%);
+  }
+  .grain {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  /* Desktop Icons */
-  .icon {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 72px;
-    padding: 4px;
-    cursor: pointer;
-    border: 1px solid transparent;
-    color: white;
-    text-align: center;
-    border-radius: 0;
-  }
-  .icon:hover { background: rgba(0,0,128,0.4); border-color: rgba(255,255,255,0.5); }
-  .icon.selected { background: rgba(0,0,128,0.6); border-color: rgba(255,255,255,0.8); }
-  .icon img, .icon .icon-img {
-    width: 40px; height: 40px;
-    margin-bottom: 4px;
-    image-rendering: pixelated;
-  }
-  .icon span {
-    font-size: 10px;
-    line-height: 1.2;
-    text-shadow: 1px 1px 1px black;
-    word-break: break-word;
-  }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; position: relative; z-index: 2; }
 
-  /* SVG Icons */
-  .folder-svg { width: 40px; height: 40px; }
-
-  /* Windows */
-  .win95-window {
-    position: absolute;
-    min-width: 300px;
-    min-height: 200px;
-    background: #c0c0c0;
-    border-top: 2px solid #ffffff;
-    border-left: 2px solid #ffffff;
-    border-right: 2px solid #808080;
-    border-bottom: 2px solid #808080;
-    box-shadow: 2px 2px 0 #000;
-    display: none;
-    flex-direction: column;
-    z-index: 10;
+  /* ---------- NAV ---------- */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    transition: background 0.3s, border-color 0.3s, backdrop-filter 0.3s;
+    border-bottom: 1px solid transparent;
   }
-  .win95-window.active { z-index: 100; }
-  .win95-window.open { display: flex; }
-
-  .title-bar {
-    background: linear-gradient(to right, #000080, #1084d0);
-    color: white;
-    padding: 3px 4px;
+  nav.scrolled {
+    background: rgba(10, 13, 18, 0.7);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 16px 28px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    cursor: move;
-    height: 22px;
-    flex-shrink: 0;
   }
-  .title-bar-text {
-    font-weight: bold;
-    font-size: 11px;
+  .brand {
+    font-family: var(--serif);
+    font-size: 19px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    text-decoration: none;
     display: flex;
     align-items: center;
-    gap: 4px;
-    white-space: nowrap;
-    overflow: hidden;
+    gap: 10px;
   }
-  .title-bar-controls {
-    display: flex;
-    gap: 2px;
-    flex-shrink: 0;
+  .brand .dot {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 14px var(--accent);
   }
-  .title-btn {
-    width: 16px; height: 14px;
-    background: #c0c0c0;
-    border-top: 1px solid #fff;
-    border-left: 1px solid #fff;
-    border-right: 1px solid #808080;
-    border-bottom: 1px solid #808080;
-    font-size: 9px;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: black;
+  .nav-links { display: flex; gap: 30px; align-items: center; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    transition: color 0.2s;
+    position: relative;
   }
-  .title-btn:active {
-    border-top: 1px solid #808080;
-    border-left: 1px solid #808080;
-    border-right: 1px solid #fff;
-    border-bottom: 1px solid #fff;
-  }
-
-  /* Menu bar */
-  .menu-bar {
-    background: #c0c0c0;
-    padding: 2px 4px;
-    display: flex;
-    gap: 2px;
-    border-bottom: 1px solid #808080;
-    flex-shrink: 0;
-  }
-  .menu-item {
-    padding: 2px 6px;
-    cursor: pointer;
-    font-size: 11px;
-  }
-  .menu-item:hover { background: #000080; color: white; }
-
-  /* Window content */
-  .window-content {
-    padding: 12px;
-    overflow-y: auto;
-    flex: 1;
-    background: #c0c0c0;
-  }
-
-  /* Inset box */
-  .inset-box {
-    background: white;
-    border-top: 1px solid #808080;
-    border-left: 1px solid #808080;
-    border-right: 1px solid #fff;
-    border-bottom: 1px solid #fff;
-    padding: 8px;
-    margin-bottom: 10px;
-  }
-
-  /* Raised box */
-  .raised-box {
-    background: #c0c0c0;
-    border-top: 2px solid #fff;
-    border-left: 2px solid #fff;
-    border-right: 2px solid #808080;
-    border-bottom: 2px solid #808080;
-    padding: 8px 12px;
-    margin-bottom: 8px;
-  }
-
-  .section-title {
-    font-weight: bold;
-    font-size: 12px;
-    margin-bottom: 6px;
-    color: #000080;
-    border-bottom: 1px solid #808080;
-    padding-bottom: 2px;
-  }
-
-  .content-text { font-size: 11px; line-height: 1.6; color: #000; }
-  .content-text p { margin-bottom: 8px; }
-  .content-text ul { padding-left: 16px; }
-  .content-text li { margin-bottom: 4px; }
-
-  /* Taskbar */
-  #taskbar {
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    height: 28px;
-    background: #c0c0c0;
-    border-top: 2px solid #fff;
-    display: flex;
-    align-items: center;
-    padding: 0 2px;
-    gap: 2px;
-    z-index: 1000;
-  }
-
-  #start-btn {
-    height: 22px;
-    padding: 0 8px;
-    background: #c0c0c0;
-    border-top: 2px solid #fff;
-    border-left: 2px solid #fff;
-    border-right: 2px solid #808080;
-    border-bottom: 2px solid #808080;
-    font-weight: bold;
-    font-size: 11px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    white-space: nowrap;
-  }
-  #start-btn:active {
-    border-top: 2px solid #808080;
-    border-left: 2px solid #808080;
-    border-right: 2px solid #fff;
-    border-bottom: 2px solid #fff;
-  }
-
-  .taskbar-divider {
-    width: 2px;
-    height: 20px;
-    border-left: 1px solid #808080;
-    border-right: 1px solid #fff;
-    margin: 0 2px;
-  }
-
-  .taskbar-btn {
-    height: 22px;
-    padding: 0 8px;
-    background: #c0c0c0;
-    border-top: 1px solid #fff;
-    border-left: 1px solid #fff;
-    border-right: 1px solid #808080;
-    border-bottom: 1px solid #808080;
-    font-size: 10px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    max-width: 150px;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-  .taskbar-btn.active {
-    border-top: 1px solid #808080;
-    border-left: 1px solid #808080;
-    border-right: 1px solid #fff;
-    border-bottom: 1px solid #fff;
-    background: #b0b0b0;
-  }
-
-  #clock {
-    margin-left: auto;
-    padding: 0 8px;
-    border-top: 1px solid #808080;
-    border-left: 1px solid #808080;
-    border-right: 1px solid #fff;
-    border-bottom: 1px solid #fff;
-    height: 22px;
-    display: flex;
-    align-items: center;
-    font-size: 11px;
-    white-space: nowrap;
-  }
-
-  /* Resize handle */
-  .resize-handle {
-    position: absolute;
-    bottom: 0; right: 0;
-    width: 12px; height: 12px;
-    cursor: se-resize;
-  }
-  .resize-handle::after {
+  .nav-links a::after {
     content: '';
     position: absolute;
-    bottom: 2px; right: 2px;
-    width: 8px; height: 8px;
-    border-right: 2px solid #808080;
-    border-bottom: 2px solid #808080;
+    left: 0; bottom: -5px;
+    width: 0; height: 1.5px;
+    background: var(--accent);
+    transition: width 0.25s;
   }
+  .nav-links a:hover, .nav-links a.active { color: var(--text); }
+  .nav-links a.active::after { width: 100%; }
+  .nav-cta {
+    padding: 8px 16px;
+    border: 1px solid var(--border-strong);
+    border-radius: 100px;
+    font-size: 13px !important;
+    color: var(--text) !important;
+    transition: background 0.2s, border-color 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--surface-2); border-color: var(--accent); }
+  .nav-cta::after { display: none; }
+  .menu-toggle { display: none; background: none; border: none; color: var(--text); cursor: pointer; }
 
-  /* Welcome splash */
-  #welcome {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -60%);
-    text-align: center;
-    color: white;
-    pointer-events: none;
-  }
-  #welcome h1 {
-    font-size: 14px;
-    text-shadow: 1px 1px 2px black;
-    margin-bottom: 4px;
-  }
-  #welcome p {
-    font-size: 10px;
-    text-shadow: 1px 1px 1px black;
-    opacity: 0.8;
-  }
-
-  /* Start menu */
-  #start-menu {
-    position: fixed;
-    bottom: 28px; left: 0;
-    width: 180px;
-    background: #c0c0c0;
-    border-top: 2px solid #fff;
-    border-right: 2px solid #808080;
-    border-left: 2px solid #fff;
-    display: none;
-    z-index: 2000;
-    box-shadow: 2px 2px 0 #000;
-  }
-  #start-menu.open { display: flex; }
-  #start-menu-sidebar {
-    width: 20px;
-    background: #808080;
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
-    color: #c0c0c0;
-    font-weight: bold;
-    font-size: 10px;
+  /* ---------- HERO ---------- */
+  header.hero {
+    min-height: 100vh;
     display: flex;
+    align-items: center;
+    position: relative;
+    padding: 120px 0 80px;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.45fr 1fr;
+    gap: 60px;
+    align-items: center;
+    width: 100%;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding: 7px 14px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    background: var(--accent-soft);
+    margin-bottom: 28px;
+  }
+  .eyebrow .pulse {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2.2s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(94,234,212,0.5); }
+    70% { box-shadow: 0 0 0 8px rgba(94,234,212,0); }
+    100% { box-shadow: 0 0 0 0 rgba(94,234,212,0); }
+  }
+  h1.hero-name {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(48px, 8vw, 92px);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+    margin-bottom: 26px;
+  }
+  h1.hero-name em {
+    font-style: italic;
+    background: linear-gradient(120deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-sub {
+    font-size: clamp(17px, 2vw, 20px);
+    color: var(--muted);
+    max-width: 540px;
+    line-height: 1.7;
+    margin-bottom: 36px;
+    font-weight: 300;
+  }
+  .hero-sub strong { color: var(--text); font-weight: 500; }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 13px 24px;
+    border-radius: 100px;
+    font-size: 14.5px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s, border-color 0.2s, box-shadow 0.2s;
+    border: 1px solid transparent;
+  }
+  .btn-primary {
+    background: linear-gradient(120deg, var(--accent), #7fe9d8);
+    color: #06231e;
+    box-shadow: 0 6px 24px rgba(94, 234, 212, 0.22);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(94, 234, 212, 0.32); }
+  .btn-ghost { background: var(--surface); color: var(--text); border-color: var(--border-strong); }
+  .btn-ghost:hover { background: var(--surface-2); border-color: var(--accent); transform: translateY(-2px); }
+
+  /* Hero portrait */
+  .portrait-wrap { display: flex; justify-content: center; position: relative; }
+  .portrait {
+    width: 280px; height: 340px;
+    border-radius: 22px;
+    background:
+      radial-gradient(circle at 50% 35%, rgba(94,234,212,0.18), transparent 60%),
+      linear-gradient(160deg, #141a23, #0c1016);
+    border: 1px solid var(--border-strong);
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 4px;
-    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.5);
   }
-  #start-menu-items { flex: 1; padding: 2px 0; }
-  .start-menu-item {
-    padding: 5px 8px;
-    cursor: pointer;
-    font-size: 11px;
-    display: flex;
+  .portrait .monogram {
+    font-family: var(--serif);
+    font-size: 90px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+  }
+  .portrait .ph-note {
+    position: absolute; bottom: 16px;
+    font-size: 11px; color: var(--muted-2);
+    letter-spacing: 0.04em;
+  }
+  .portrait-badge {
+    position: absolute;
+    bottom: -18px; right: -10px;
+    background: var(--bg-2);
+    border: 1px solid var(--border-strong);
+    border-radius: 14px;
+    padding: 12px 16px;
+    display: flex; align-items: center; gap: 10px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+  }
+  .portrait-badge .pb-num { font-family: var(--serif); font-size: 24px; color: var(--accent); line-height: 1; }
+  .portrait-badge .pb-label { font-size: 11px; color: var(--muted); line-height: 1.3; }
+
+  /* ---------- STATS ---------- */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+    margin-top: 70px;
+  }
+  .stat {
+    background: var(--bg);
+    padding: 26px 22px;
+    text-align: center;
+    transition: background 0.25s;
+  }
+  .stat:hover { background: var(--surface); }
+  .stat .num {
+    font-family: var(--serif);
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 1;
+    margin-bottom: 8px;
+    background: linear-gradient(120deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .stat .lbl { font-size: 12.5px; color: var(--muted); letter-spacing: 0.02em; }
+
+  /* ---------- SECTIONS ---------- */
+  section { padding: 100px 0; position: relative; }
+  .section-head { margin-bottom: 54px; max-width: 680px; }
+  .section-eyebrow {
+    font-size: 12.5px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 16px; display: flex; align-items: center; gap: 12px;
+  }
+  .section-eyebrow::before {
+    content: ''; width: 28px; height: 1px; background: var(--accent); opacity: 0.6;
+  }
+  h2.section-title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(32px, 5vw, 48px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  .section-desc { color: var(--muted); font-size: 17px; font-weight: 300; line-height: 1.7; }
+
+  /* ---------- PUBLICATION CARDS ---------- */
+  .pub-list { display: flex; flex-direction: column; gap: 18px; }
+  .pub-card {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 24px;
+    align-items: start;
+    padding: 28px 30px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.25s, background 0.25s, transform 0.25s;
+  }
+  .pub-card:hover { border-color: var(--border-strong); background: var(--surface-2); transform: translateY(-3px); }
+  .pub-index {
+    font-family: var(--serif);
+    font-size: 15px;
+    color: var(--muted-2);
+    padding-top: 4px;
+    min-width: 26px;
+  }
+  .pub-main { min-width: 0; }
+  .pub-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+  .badge {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.04em;
+    padding: 4px 11px; border-radius: 100px;
+    background: var(--accent-soft); color: var(--accent);
+    border: 1px solid rgba(94,234,212,0.2);
+  }
+  .badge.alt { background: rgba(129,140,248,0.12); color: #a5adf9; border-color: rgba(129,140,248,0.22); }
+  .badge.neutral { background: var(--surface-2); color: var(--muted); border-color: var(--border); }
+  .pub-title {
+    font-family: var(--serif);
+    font-size: 21px;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    margin-bottom: 10px;
+  }
+  .pub-meta { font-size: 13.5px; color: var(--muted-2); margin-bottom: 14px; }
+  .pub-meta .journal { color: var(--accent); font-style: italic; }
+  .pub-abstract { font-size: 14.5px; color: var(--muted); line-height: 1.7; font-weight: 300; }
+  .pub-authors { font-size: 13px; color: var(--muted-2); margin-top: 12px; }
+  .pub-authors b { color: var(--text); font-weight: 600; }
+  .pub-arrow {
+    color: var(--muted-2);
+    font-size: 22px;
+    transition: transform 0.25s, color 0.25s;
+    padding-top: 2px;
+  }
+  .pub-card:hover .pub-arrow { color: var(--accent); transform: translate(3px, -3px); }
+
+  /* ---------- TWO-COL GRID (impact / writing) ---------- */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .tile {
+    padding: 30px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    transition: border-color 0.25s, background 0.25s, transform 0.25s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .tile:hover { border-color: var(--border-strong); background: var(--surface-2); transform: translateY(-3px); }
+  .tile-icon {
+    width: 46px; height: 46px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    background: var(--accent-soft);
+    border: 1px solid rgba(94,234,212,0.2);
+    margin-bottom: 18px;
+  }
+  .tile-role { font-size: 12.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .tile-title { font-family: var(--serif); font-size: 22px; font-weight: 500; line-height: 1.25; margin-bottom: 10px; letter-spacing: -0.01em; }
+  .tile-text { font-size: 14.5px; color: var(--muted); font-weight: 300; line-height: 1.7; }
+  .tile-link { display: inline-flex; align-items: center; gap: 7px; margin-top: 16px; font-size: 13.5px; font-weight: 500; color: var(--accent); }
+  .tile-link span { transition: transform 0.2s; }
+  .tile:hover .tile-link span { transform: translateX(4px); }
+
+  /* ---------- WRITING ---------- */
+  .write-card { display: flex; flex-direction: column; }
+  .write-card .tile-title { font-size: 19px; }
+  .write-date { font-size: 12.5px; color: var(--muted-2); margin-bottom: 14px; letter-spacing: 0.03em; }
+
+  /* ---------- RECOGNITION ---------- */
+  .recog-list { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--border); }
+  .recog-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 22px;
     align-items: center;
-    gap: 6px;
+    padding: 24px 8px;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    color: inherit;
+    transition: padding 0.25s, background 0.25s;
   }
-  .start-menu-item:hover { background: #000080; color: white; }
-  .start-menu-divider { border-top: 1px solid #808080; border-bottom: 1px solid #fff; margin: 2px 0; }
+  .recog-item:hover { background: var(--surface); padding-left: 16px; padding-right: 16px; }
+  .recog-kind { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); min-width: 110px; }
+  .recog-title { font-family: var(--serif); font-size: 19px; font-weight: 500; line-height: 1.3; }
+  .recog-title .sub { display: block; font-family: var(--sans); font-size: 13.5px; color: var(--muted); font-weight: 300; margin-top: 4px; }
+  .recog-arrow { color: var(--muted-2); font-size: 18px; transition: transform 0.2s, color 0.2s; }
+  .recog-item:hover .recog-arrow { color: var(--accent); transform: translate(3px,-3px); }
 
-  /* Notepad style */
-  .notepad-content {
-    background: white;
-    border: inset 2px;
-    padding: 8px;
-    font-family: 'Courier New', monospace;
-    font-size: 11px;
-    line-height: 1.6;
-    white-space: pre-wrap;
-    overflow-y: auto;
-    flex: 1;
+  /* ---------- ABOUT ---------- */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+  .about-text p { font-size: 16.5px; color: var(--muted); font-weight: 300; line-height: 1.85; margin-bottom: 18px; }
+  .about-text p strong { color: var(--text); font-weight: 500; }
+  .about-side { display: flex; flex-direction: column; gap: 14px; }
+  .about-fact {
+    padding: 20px 22px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
   }
+  .about-fact .k { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted-2); margin-bottom: 6px; }
+  .about-fact .v { font-size: 15.5px; color: var(--text); font-weight: 400; }
+  .about-fact .v .accent { color: var(--accent); }
 
-  .tag {
-    display: inline-block;
-    background: #000080;
-    color: white;
-    padding: 1px 6px;
-    font-size: 10px;
-    margin: 2px 2px 2px 0;
+  /* ---------- CONTACT ---------- */
+  .contact {
+    text-align: center;
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    padding: 70px 40px;
+    background:
+      radial-gradient(70% 120% at 50% 0%, rgba(94,234,212,0.08), transparent 60%),
+      var(--surface);
+    position: relative;
+    overflow: hidden;
   }
+  .contact h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(32px, 5vw, 52px); letter-spacing: -0.02em; line-height: 1.05; margin-bottom: 18px; }
+  .contact h2 em { font-style: italic; color: var(--accent); }
+  .contact p { color: var(--muted); font-size: 17px; font-weight: 300; max-width: 480px; margin: 0 auto 34px; }
+  .contact-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
-  .placeholder-bar {
-    height: 8px;
-    background: #808080;
-    margin-bottom: 6px;
-    opacity: 0.3;
+  /* ---------- FOOTER ---------- */
+  footer {
+    padding: 40px 0;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
   }
-  .placeholder-bar.short { width: 60%; }
-  .placeholder-bar.medium { width: 80%; }
+  .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-inner p { font-size: 13px; color: var(--muted-2); }
+  .footer-links { display: flex; gap: 22px; }
+  .footer-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--accent); }
+
+  /* ---------- REVEAL ANIMATION ---------- */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(.2,.7,.2,1), transform 0.7s cubic-bezier(.2,.7,.2,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  .reveal.d1 { transition-delay: 0.07s; }
+  .reveal.d2 { transition-delay: 0.14s; }
+  .reveal.d3 { transition-delay: 0.21s; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 880px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 50px; }
+    .portrait-wrap { order: -1; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .about-grid { grid-template-columns: 1fr; gap: 36px; }
+    .nav-links { display: none; }
+    .nav-links.open {
+      display: flex; flex-direction: column;
+      position: absolute; top: 64px; left: 16px; right: 16px;
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 16px; padding: 20px; gap: 18px;
+    }
+    .menu-toggle { display: block; }
+    .pub-card { grid-template-columns: 1fr; gap: 14px; }
+    .pub-index, .pub-arrow { display: none; }
+    .recog-item { grid-template-columns: 1fr; gap: 8px; }
+    .recog-arrow { display: none; }
+  }
 </style>
 </head>
 <body>
 
-<!-- Desktop -->
-<div id="desktop">
+<div class="bg-glow"></div>
+<div class="grain"></div>
 
-  <div id="welcome">
-    <h1>Welcome to My Portfolio</h1>
-    <p>Double-click a folder to open it</p>
-  </div>
-
-  <!-- Icons -->
-  <div class="icon" ondblclick="openWindow('about')" onclick="selectIcon(this)">
-    <svg class="folder-svg" viewBox="0 0 40 40">
-      <rect x="0" y="10" width="38" height="26" fill="#ffcc00" stroke="#cc8800" stroke-width="1"/>
-      <rect x="0" y="10" width="38" height="26" fill="#ffdd44"/>
-      <rect x="0" y="14" width="38" height="22" fill="#ffdd44" stroke="#cc8800" stroke-width="1"/>
-      <rect x="2" y="10" width="14" height="5" fill="#ffdd44" rx="2" stroke="#cc8800" stroke-width="1"/>
-      <text x="19" y="29" text-anchor="middle" font-size="10" fill="#884400">👤</text>
-    </svg>
-    <span>About Me</span>
-  </div>
-
-  <div class="icon" ondblclick="openWindow('research')" onclick="selectIcon(this)">
-    <svg class="folder-svg" viewBox="0 0 40 40">
-      <rect x="0" y="14" width="38" height="22" fill="#ffdd44" stroke="#cc8800" stroke-width="1"/>
-      <rect x="2" y="10" width="14" height="5" fill="#ffdd44" rx="2" stroke="#cc8800" stroke-width="1"/>
-      <text x="19" y="29" text-anchor="middle" font-size="10" fill="#884400">🔬</text>
-    </svg>
-    <span>Research</span>
-  </div>
-
-  <div class="icon" ondblclick="openWindow('clinical')" onclick="selectIcon(this)">
-    <svg class="folder-svg" viewBox="0 0 40 40">
-      <rect x="0" y="14" width="38" height="22" fill="#ffdd44" stroke="#cc8800" stroke-width="1"/>
-      <rect x="2" y="10" width="14" height="5" fill="#ffdd44" rx="2" stroke="#cc8800" stroke-width="1"/>
-      <text x="19" y="29" text-anchor="middle" font-size="10" fill="#884400">🏥</text>
-    </svg>
-    <span>Clinical</span>
-  </div>
-
-  <div class="icon" ondblclick="openWindow('volunteering')" onclick="selectIcon(this)">
-    <svg class="folder-svg" viewBox="0 0 40 40">
-      <rect x="0" y="14" width="38" height="22" fill="#ffdd44" stroke="#cc8800" stroke-width="1"/>
-      <rect x="2" y="10" width="14" height="5" fill="#ffdd44" rx="2" stroke="#cc8800" stroke-width="1"/>
-      <text x="19" y="29" text-anchor="middle" font-size="10" fill="#884400">🤝</text>
-    </svg>
-    <span>Volunteering</span>
-  </div>
-
-  <div class="icon" ondblclick="openWindow('consulting')" onclick="selectIcon(this)">
-    <svg class="folder-svg" viewBox="0 0 40 40">
-      <rect x="0" y="14" width="38" height="22" fill="#ffdd44" stroke="#cc8800" stroke-width="1"/>
-      <rect x="2" y="10" width="14" height="5" fill="#ffdd44" rx="2" stroke="#cc8800" stroke-width="1"/>
-      <text x="19" y="29" text-anchor="middle" font-size="10" fill="#884400">💼</text>
-    </svg>
-    <span>Consulting</span>
-  </div>
-
-  <div class="icon" ondblclick="openWindow('resume')" onclick="selectIcon(this)">
-    <svg class="folder-svg" viewBox="0 0 40 40">
-      <rect x="6" y="4" width="26" height="32" fill="white" stroke="#808080" stroke-width="1"/>
-      <rect x="6" y="4" width="20" height="32" fill="white"/>
-      <polygon points="26,4 32,10 26,10" fill="#c0c0c0" stroke="#808080" stroke-width="1"/>
-      <line x1="10" y1="14" x2="28" y2="14" stroke="#808080" stroke-width="1"/>
-      <line x1="10" y1="18" x2="28" y2="18" stroke="#808080" stroke-width="1"/>
-      <line x1="10" y1="22" x2="22" y2="22" stroke="#808080" stroke-width="1"/>
-      <text x="19" y="32" text-anchor="middle" font-size="7" fill="#000080" font-weight="bold">CV</text>
-    </svg>
-    <span>Resume.txt</span>
-  </div>
-
-  <div class="icon" ondblclick="openWindow('contact')" onclick="selectIcon(this)">
-    <svg class="folder-svg" viewBox="0 0 40 40">
-      <rect x="4" y="8" width="32" height="24" fill="#fff" stroke="#808080" stroke-width="1" rx="2"/>
-      <polyline points="4,8 20,22 36,8" fill="none" stroke="#808080" stroke-width="1.5"/>
-      <text x="20" y="34" text-anchor="middle" font-size="7" fill="#000080">✉</text>
-    </svg>
-    <span>Contact</span>
-  </div>
-
-  <div class="icon" ondblclick="openWindow('whymed')" onclick="selectIcon(this)">
-    <svg class="folder-svg" viewBox="0 0 40 40">
-      <rect x="6" y="4" width="26" height="32" fill="#ffffcc" stroke="#808080" stroke-width="1"/>
-      <polygon points="26,4 32,10 26,10" fill="#e0e080" stroke="#808080" stroke-width="1"/>
-      <line x1="10" y1="14" x2="28" y2="14" stroke="#808080" stroke-width="0.5"/>
-      <line x1="10" y1="18" x2="28" y2="18" stroke="#808080" stroke-width="0.5"/>
-      <line x1="10" y1="22" x2="24" y2="22" stroke="#808080" stroke-width="0.5"/>
-      <line x1="10" y1="26" x2="26" y2="26" stroke="#808080" stroke-width="0.5"/>
-    </svg>
-    <span>Why Medicine.txt</span>
-  </div>
-
-</div>
-
-<!-- ======= WINDOWS ======= -->
-
-<!-- About Me -->
-<div class="win95-window" id="win-about" style="width:420px; height:320px; top:60px; left:120px;">
-  <div class="title-bar" onmousedown="startDrag(event, 'win-about')">
-    <div class="title-bar-text">👤 About Me</div>
-    <div class="title-bar-controls">
-      <div class="title-btn" onclick="minimizeWindow('win-about')">_</div>
-      <div class="title-btn" onclick="maximizeWindow('win-about')">□</div>
-      <div class="title-btn" onclick="closeWindow('win-about')">✕</div>
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#top" class="brand"><span class="dot"></span> Vedaant Mutha</a>
+    <div class="nav-links" id="navLinks">
+      <a href="#research">Research</a>
+      <a href="#impact">Impact</a>
+      <a href="#writing">Writing</a>
+      <a href="#about">About</a>
+      <a href="#contact" class="nav-cta">Get in touch</a>
     </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+    </button>
   </div>
-  <div class="menu-bar">
-    <div class="menu-item">File</div>
-    <div class="menu-item">Edit</div>
-    <div class="menu-item">View</div>
-  </div>
-  <div class="window-content">
-    <div class="raised-box" style="display:flex; align-items:center; gap:12px;">
-      <div style="width:50px; height:50px; background:#000080; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px; flex-shrink:0;">👤</div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
       <div>
-        <div style="font-weight:bold; font-size:13px; margin-bottom:2px;">Your Name Here</div>
-        <div style="color:#444; font-size:10px;">Premed Student · Your University</div>
-        <div style="color:#444; font-size:10px;">Class of 20XX</div>
+        <div class="eyebrow reveal in"><span class="pulse"></span> Pre-Medical Student · University of Florida</div>
+        <h1 class="hero-name reveal in d1">Vedaant<br/><em>Mutha</em></h1>
+        <p class="hero-sub reveal in d2">
+          Researcher and advocate working at the intersection of <strong>medicine, healthcare access, and economics</strong> — from peer-reviewed immunology research to bringing care to people experiencing homelessness.
+        </p>
+        <div class="hero-actions reveal in d3">
+          <a href="#research" class="btn btn-primary">View research →</a>
+          <a href="#contact" class="btn btn-ghost">Get in touch</a>
+        </div>
+      </div>
+      <div class="portrait-wrap reveal in d2">
+        <div class="portrait">
+          <div class="monogram">VM</div>
+          <div class="ph-note">Drop a photo here</div>
+        </div>
+        <div class="portrait-badge">
+          <div class="pb-num">2</div>
+          <div class="pb-label">Peer-reviewed<br/>publications</div>
+        </div>
       </div>
     </div>
-    <div class="inset-box">
-      <div class="section-title">About</div>
-      <div class="content-text">
-        <p>Hi! I'm a premed student passionate about medicine, research, and patient care. Add your bio here — where you're from, what drives you, what you're working toward.</p>
+
+    <div class="stats reveal">
+      <div class="stat"><div class="num">2</div><div class="lbl">Peer-reviewed papers</div></div>
+      <div class="stat"><div class="num">198</div><div class="lbl">Research participants</div></div>
+      <div class="stat"><div class="num">40+</div><div class="lbl">H4H chapters nationwide</div></div>
+      <div class="stat"><div class="num">3+</div><div class="lbl">Organizations led</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">Research &amp; Publications</div>
+      <h2 class="section-title">Published, peer-reviewed science.</h2>
+      <p class="section-desc">Co-authored work in immunology, gene therapy, and healthcare equity — from systems-biology reviews to original survey research on access to care.</p>
+    </div>
+
+    <div class="pub-list">
+
+      <a href="https://pubmed.ncbi.nlm.nih.gov/42193171/" target="_blank" rel="noopener" class="pub-card reveal">
+        <div class="pub-index">01</div>
+        <div class="pub-main">
+          <div class="pub-tags">
+            <span class="badge">Peer-Reviewed</span>
+            <span class="badge alt">Machine Learning</span>
+            <span class="badge neutral">2026</span>
+          </div>
+          <div class="pub-title">Oxidative-Stress-Associated Molecular Signatures in Immune-Mediated Diseases: A Systematic Review Integrating Machine Learning and Systems Biology Approaches</div>
+          <div class="pub-meta"><span class="journal">Antioxidants (Basel)</span> · April 2026 · PMID 42193171</div>
+          <div class="pub-abstract">A systematic review examining computational analyses of oxidative-stress data across multiple sclerosis, lupus, rheumatoid arthritis, Sjögren's syndrome, and IBD — identifying regulatory genes with applications in biomarker discovery and targeted therapy.</div>
+          <div class="pub-authors">Mittal R, Valerio EA, <b>Mutha V</b>, Raj A, Hirani K</div>
+        </div>
+        <div class="pub-arrow">↗</div>
+      </a>
+
+      <a href="https://pubmed.ncbi.nlm.nih.gov/40539567/" target="_blank" rel="noopener" class="pub-card reveal">
+        <div class="pub-index">02</div>
+        <div class="pub-main">
+          <div class="pub-tags">
+            <span class="badge">Peer-Reviewed</span>
+            <span class="badge alt">Gene Therapy</span>
+            <span class="badge neutral">2025</span>
+          </div>
+          <div class="pub-title">Emerging Role of Gene Therapy in Immune Modulation and Beta-Cell Preservation in Type 1 Diabetes</div>
+          <div class="pub-meta"><span class="journal">Journal of Drug Targeting</span> · Dec 2025 · 33(10):1699–1717 · PMID 40539567</div>
+          <div class="pub-abstract">A review synthesizing preclinical and clinical evidence on viral and non-viral gene-delivery systems — including CRISPR/Cas9 — for preserving pancreatic β-cells and restoring immune tolerance in Type 1 diabetes.</div>
+          <div class="pub-authors">Mittal R, <b>Mutha V</b>, Valerio EA, Hirani K, Arevalo G, Panchal A, Mittal M, Lemos JRN, Hirani K</div>
+        </div>
+        <div class="pub-arrow">↗</div>
+      </a>
+
+      <a href="https://www.thepowerofthepatient.org/" target="_blank" rel="noopener" class="pub-card reveal">
+        <div class="pub-index">03</div>
+        <div class="pub-main">
+          <div class="pub-tags">
+            <span class="badge">Original Research</span>
+            <span class="badge alt">Health Equity</span>
+            <span class="badge neutral">Survey Study</span>
+          </div>
+          <div class="pub-title">The Right to Thrive: Championing Healthcare Accessibility for a Stronger Generation</div>
+          <div class="pub-meta"><span class="journal">Florida Atlantic University</span> · Independent survey research</div>
+          <div class="pub-abstract">An original 17-question survey of 198 adults analyzing barriers to healthcare access. Findings showed transportation, affordability, and lack of insurance as the most prevalent barriers — with statistically significant differences by income and gender (χ² analysis, p&lt;.01).</div>
+          <div class="pub-authors"><b>Vedaant Mutha</b> · Sole author</div>
+        </div>
+        <div class="pub-arrow">↗</div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section id="impact">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">Impact &amp; Leadership</div>
+      <h2 class="section-title">Turning research into care.</h2>
+      <p class="section-desc">Building organizations that put health equity into practice — meeting underserved communities where they are.</p>
+    </div>
+
+    <div class="grid-2">
+      <a href="https://hhgainesville-cloud.github.io/h4hwebsite/" target="_blank" rel="noopener" class="tile reveal">
+        <div class="tile-icon">❤️</div>
+        <div class="tile-role">Medical Information Director</div>
+        <div class="tile-title">Hearts for the Homeless — Gainesville</div>
+        <div class="tile-text">Leads health outreach for unhoused residents of Gainesville: free blood-pressure and BMI screenings, hygiene kits, and referrals to local clinics. Part of an international nonprofit spanning 40+ chapters, with data published in peer-reviewed journals and shared with policymakers.</div>
+        <div class="tile-link">Visit chapter site <span>→</span></div>
+      </a>
+
+      <a href="https://ufprepwebsite.vercel.app/" target="_blank" rel="noopener" class="tile reveal d1">
+        <div class="tile-icon">🔬</div>
+        <div class="tile-role">Research · University of Florida</div>
+        <div class="tile-title">UF PREP — Pre-Health Research &amp; Equity Partnership</div>
+        <div class="tile-text">A student-led research organization advancing undergraduate scholarship on the social determinants of health. 50+ members, 12 published works, and 40+ poster presentations at FURC 2026 across public health, epidemiology, and clinical research.</div>
+        <div class="tile-link">Explore PREP <span>→</span></div>
+      </a>
+
+      <a href="https://palmbeachmedicalcenter.com/" target="_blank" rel="noopener" class="tile reveal">
+        <div class="tile-icon">🩺</div>
+        <div class="tile-role">Clinical Experience</div>
+        <div class="tile-title">Palm Beach Medical Center</div>
+        <div class="tile-text">Clinical exposure at a West Palm Beach cardiology and internal-medicine practice with over 44 years serving the community — gaining first-hand insight into patient care, diagnostics, and chronic disease management.</div>
+        <div class="tile-link">View practice <span>→</span></div>
+      </a>
+
+      <a href="https://www.alligator.org/article/2026/04/campus-group-helps-homless-community" target="_blank" rel="noopener" class="tile reveal d1">
+        <div class="tile-icon">📰</div>
+        <div class="tile-role">In the Press</div>
+        <div class="tile-title">Featured in The Independent Florida Alligator</div>
+        <div class="tile-text">"We want to serve the underserved population in Gainesville." Profiled for leading Hearts for the Homeless outreach — where 95% of surveyed local homeless residents reported difficulty accessing healthcare.</div>
+        <div class="tile-link">Read the article <span>→</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- WRITING -->
+<section id="writing">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">Writing</div>
+      <h2 class="section-title">On medicine &amp; markets.</h2>
+      <p class="section-desc">Essays exploring the business of healthcare — biosimilars, access, and the economics of treatment.</p>
+    </div>
+
+    <div class="grid-2">
+      <a href="https://medium.com/@muthavedaant" target="_blank" rel="noopener" class="tile write-card reveal">
+        <div class="write-date">Aug 12, 2025 · Medium</div>
+        <div class="tile-title">Humira and the Biosimilar Moment: How Adalimumab Alternatives Could Reshape Access</div>
+        <div class="tile-text">For nearly two decades, Humira changed the course of autoimmune medicine. A look at how biosimilar alternatives could reshape patient access and the economics of treatment.</div>
+        <div class="tile-link">Read on Medium <span>→</span></div>
+      </a>
+
+      <a href="https://medium.com/@muthavedaant" target="_blank" rel="noopener" class="tile write-card reveal d1">
+        <div class="write-date">Aug 10, 2025 · Medium</div>
+        <div class="tile-title">Zarxio: How Filgrastim's First Biosimilar Began the Biosim Revolution</div>
+        <div class="tile-text">In the world of medicine, innovation often takes the spotlight. The story of Zarxio — the pioneering biosimilar that opened the door to a new era of affordable biologics.</div>
+        <div class="tile-link">Read on Medium <span>→</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- RECOGNITION -->
+<section id="recognition">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">Recognition &amp; Media</div>
+      <h2 class="section-title">Featured &amp; published.</h2>
+    </div>
+
+    <div class="recog-list">
+      <a href="https://www.alligator.org/article/2026/04/campus-group-helps-homless-community" target="_blank" rel="noopener" class="recog-item reveal">
+        <div class="recog-kind">Press</div>
+        <div class="recog-title">The Independent Florida Alligator
+          <span class="sub">Campus group helps homeless community — April 2026</span>
+        </div>
+        <div class="recog-arrow">↗</div>
+      </a>
+      <a href="https://www.iheart.com/podcast/263-once-an-owl-always-an-owl-100410407/" target="_blank" rel="noopener" class="recog-item reveal">
+        <div class="recog-kind">Podcast</div>
+        <div class="recog-title">Once an Owl, Always an Owl
+          <span class="sub">Florida Atlantic University Lab Schools alumni series</span>
+        </div>
+        <div class="recog-arrow">↗</div>
+      </a>
+      <a href="https://www.thepowerofthepatient.org/" target="_blank" rel="noopener" class="recog-item reveal">
+        <div class="recog-kind">Published</div>
+        <div class="recog-title">The Power of the Patient
+          <span class="sub">National Library of Patient Rights &amp; Advocacy</span>
+        </div>
+        <div class="recog-arrow">↗</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">About</div>
+      <h2 class="section-title">Hi, I'm Vedaant.</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I'm a pre-medical student at the <strong>University of Florida</strong> studying <strong>Economics and Biology</strong> — a combination that shapes how I think about medicine: not just as science, but as a system people have to navigate to get well.</p>
+        <p>My research spans <strong>immunology and gene therapy</strong>, with peer-reviewed publications on oxidative stress in autoimmune disease and gene-therapy approaches to Type 1 diabetes. Alongside the lab work, I run original studies on <strong>healthcare access</strong> and lead outreach that brings screenings and care directly to people experiencing homelessness.</p>
+        <p>Whether I'm analyzing biosimilar economics, screening blood pressure at Grace Marketplace, or co-authoring a systematic review, the throughline is the same: <strong>everyone deserves the right to thrive.</strong></p>
+      </div>
+      <div class="about-side reveal d1">
+        <div class="about-fact"><div class="k">Education</div><div class="v">University of Florida<br/><span class="accent">B.S. Economics &amp; Biology</span></div></div>
+        <div class="about-fact"><div class="k">Focus Areas</div><div class="v">Immunology · Health Equity · Healthcare Economics</div></div>
+        <div class="about-fact"><div class="k">Alma Mater</div><div class="v">FAU Lab Schools <span class="accent">· Once an Owl, Always an Owl</span></div></div>
+        <div class="about-fact"><div class="k">Currently</div><div class="v">Research, outreach &amp; writing on access to care</div></div>
       </div>
     </div>
-    <div class="inset-box">
-      <div class="section-title">Skills & Interests</div>
-      <div>
-        <span class="tag">Research</span>
-        <span class="tag">Clinical Care</span>
-        <span class="tag">Healthcare Consulting</span>
-        <span class="tag">Public Health</span>
-        <span class="tag">Your Major</span>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact reveal">
+      <h2>Let's <em>connect.</em></h2>
+      <p>Open to research collaborations, advocacy work, and conversations about medicine and access.</p>
+      <div class="contact-links">
+        <a href="mailto:muthavedaant@gmail.com" class="btn btn-primary">✉ Email me</a>
+        <a href="https://medium.com/@muthavedaant" target="_blank" rel="noopener" class="btn btn-ghost">Medium</a>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/?term=Mutha+Vedaant" target="_blank" rel="noopener" class="btn btn-ghost">PubMed</a>
+        <a href="#" class="btn btn-ghost" id="linkedinBtn">LinkedIn</a>
       </div>
     </div>
   </div>
-  <div class="resize-handle" onmousedown="startResize(event, 'win-about')"></div>
-</div>
+</section>
 
-<!-- Research -->
-<div class="win95-window" id="win-research" style="width:460px; height:340px; top:40px; left:160px;">
-  <div class="title-bar" onmousedown="startDrag(event, 'win-research')">
-    <div class="title-bar-text">🔬 Research</div>
-    <div class="title-bar-controls">
-      <div class="title-btn" onclick="minimizeWindow('win-research')">_</div>
-      <div class="title-btn" onclick="maximizeWindow('win-research')">□</div>
-      <div class="title-btn" onclick="closeWindow('win-research')">✕</div>
+<footer>
+  <div class="wrap footer-inner">
+    <p>© 2026 Vedaant Mutha. Built with care.</p>
+    <div class="footer-links">
+      <a href="#research">Research</a>
+      <a href="#impact">Impact</a>
+      <a href="#writing">Writing</a>
+      <a href="#contact">Contact</a>
     </div>
   </div>
-  <div class="menu-bar">
-    <div class="menu-item">File</div>
-    <div class="menu-item">Edit</div>
-    <div class="menu-item">View</div>
-  </div>
-  <div class="window-content">
-    <div class="raised-box">
-      <div class="section-title">Lab / Research Position</div>
-      <div class="content-text">
-        <p><strong>Lab Name</strong> — PI: Dr. Your PI · University</p>
-        <p>Describe what you researched here. What was the focus area? What techniques did you use? What questions were you trying to answer?</p>
-        <ul>
-          <li>Key finding or contribution #1</li>
-          <li>Key finding or contribution #2</li>
-          <li>Publications, posters, or abstracts</li>
-        </ul>
-      </div>
-    </div>
-    <div class="raised-box">
-      <div class="section-title">Another Research Experience</div>
-      <div class="content-text">
-        <p>Add any additional research roles here. Summer programs, independent study, etc.</p>
-        <div class="placeholder-bar medium"></div>
-        <div class="placeholder-bar short"></div>
-      </div>
-    </div>
-  </div>
-  <div class="resize-handle" onmousedown="startResize(event, 'win-research')"></div>
-</div>
-
-<!-- Clinical -->
-<div class="win95-window" id="win-clinical" style="width:440px; height:320px; top:80px; left:180px;">
-  <div class="title-bar" onmousedown="startDrag(event, 'win-clinical')">
-    <div class="title-bar-text">🏥 Clinical Experience</div>
-    <div class="title-bar-controls">
-      <div class="title-btn" onclick="minimizeWindow('win-clinical')">_</div>
-      <div class="title-btn" onclick="maximizeWindow('win-clinical')">□</div>
-      <div class="title-btn" onclick="closeWindow('win-clinical')">✕</div>
-    </div>
-  </div>
-  <div class="menu-bar">
-    <div class="menu-item">File</div>
-    <div class="menu-item">Edit</div>
-    <div class="menu-item">View</div>
-  </div>
-  <div class="window-content">
-    <div style="display:flex; gap:8px; margin-bottom:10px;">
-      <div class="raised-box" style="flex:1; text-align:center; margin-bottom:0;">
-        <div style="font-size:18px; font-weight:bold; color:#000080;">XXX+</div>
-        <div style="font-size:10px; color:#444;">Clinical Hours</div>
-      </div>
-      <div class="raised-box" style="flex:1; text-align:center; margin-bottom:0;">
-        <div style="font-size:18px; font-weight:bold; color:#000080;">X</div>
-        <div style="font-size:10px; color:#444;">Hospitals / Clinics</div>
-      </div>
-    </div>
-    <div class="raised-box">
-      <div class="section-title">Hospital / Clinic Name</div>
-      <div class="content-text">
-        <p>Describe your role, what department, what you observed or assisted with. What did you learn about patient care?</p>
-      </div>
-    </div>
-    <div class="raised-box">
-      <div class="section-title">Another Clinical Role</div>
-      <div class="content-text">
-        <div class="placeholder-bar medium"></div>
-        <div class="placeholder-bar short"></div>
-      </div>
-    </div>
-  </div>
-  <div class="resize-handle" onmousedown="startResize(event, 'win-clinical')"></div>
-</div>
-
-<!-- Volunteering -->
-<div class="win95-window" id="win-volunteering" style="width:420px; height:300px; top:100px; left:200px;">
-  <div class="title-bar" onmousedown="startDrag(event, 'win-volunteering')">
-    <div class="title-bar-text">🤝 Volunteering</div>
-    <div class="title-bar-controls">
-      <div class="title-btn" onclick="minimizeWindow('win-volunteering')">_</div>
-      <div class="title-btn" onclick="maximizeWindow('win-volunteering')">□</div>
-      <div class="title-btn" onclick="closeWindow('win-volunteering')">✕</div>
-    </div>
-  </div>
-  <div class="menu-bar">
-    <div class="menu-item">File</div>
-    <div class="menu-item">Edit</div>
-    <div class="menu-item">View</div>
-  </div>
-  <div class="window-content">
-    <div class="raised-box">
-      <div class="section-title">Organization Name — Non-Clinical</div>
-      <div class="content-text">
-        <p>What did you do? Who did you serve? What was the impact? (e.g. hours, people helped, programs run)</p>
-      </div>
-    </div>
-    <div class="raised-box">
-      <div class="section-title">Another Organization</div>
-      <div class="content-text">
-        <div class="placeholder-bar medium"></div>
-        <div class="placeholder-bar short"></div>
-      </div>
-    </div>
-  </div>
-  <div class="resize-handle" onmousedown="startResize(event, 'win-volunteering')"></div>
-</div>
-
-<!-- Consulting -->
-<div class="win95-window" id="win-consulting" style="width:440px; height:300px; top:120px; left:220px;">
-  <div class="title-bar" onmousedown="startDrag(event, 'win-consulting')">
-    <div class="title-bar-text">💼 Consulting</div>
-    <div class="title-bar-controls">
-      <div class="title-btn" onclick="minimizeWindow('win-consulting')">_</div>
-      <div class="title-btn" onclick="maximizeWindow('win-consulting')">□</div>
-      <div class="title-btn" onclick="closeWindow('win-consulting')">✕</div>
-    </div>
-  </div>
-  <div class="menu-bar">
-    <div class="menu-item">File</div>
-    <div class="menu-item">Edit</div>
-    <div class="menu-item">View</div>
-  </div>
-  <div class="window-content">
-    <div class="raised-box">
-      <div class="section-title">Consulting Role / Organization</div>
-      <div class="content-text">
-        <p>Describe the consulting work — healthcare consulting? Case competitions? Independent projects? What problems did you tackle and what was the outcome?</p>
-        <ul>
-          <li>Project or deliverable #1</li>
-          <li>Project or deliverable #2</li>
-        </ul>
-      </div>
-    </div>
-    <div class="raised-box">
-      <div class="section-title">Another Engagement</div>
-      <div class="content-text">
-        <div class="placeholder-bar medium"></div>
-        <div class="placeholder-bar short"></div>
-      </div>
-    </div>
-  </div>
-  <div class="resize-handle" onmousedown="startResize(event, 'win-consulting')"></div>
-</div>
-
-<!-- Resume -->
-<div class="win95-window" id="win-resume" style="width:400px; height:280px; top:140px; left:240px;">
-  <div class="title-bar" onmousedown="startDrag(event, 'win-resume')">
-    <div class="title-bar-text">📄 Resume.txt - Notepad</div>
-    <div class="title-bar-controls">
-      <div class="title-btn" onclick="minimizeWindow('win-resume')">_</div>
-      <div class="title-btn" onclick="maximizeWindow('win-resume')">□</div>
-      <div class="title-btn" onclick="closeWindow('win-resume')">✕</div>
-    </div>
-  </div>
-  <div class="menu-bar">
-    <div class="menu-item">File</div>
-    <div class="menu-item">Edit</div>
-    <div class="menu-item">Format</div>
-    <div class="menu-item">Help</div>
-  </div>
-  <div class="notepad-content">
-YOUR NAME
-your.email@email.com | LinkedIn | GitHub
-University Name | Major | GPA: X.XX | Class of 20XX
-
-EDUCATION
-────────────────────────────────────────
-B.S. Your Major, University Name        20XX
-
-RESEARCH
-────────────────────────────────────────
-Lab Name, PI Name                       20XX–Present
-  - Research contribution here
-  - Key skill or technique used
-
-CLINICAL EXPERIENCE
-────────────────────────────────────────
-Hospital/Clinic Name                    20XX–Present
-  - XXX+ hours, department name
-
-VOLUNTEERING
-────────────────────────────────────────
-Organization Name                       20XX–Present
-  - Description of role
-
-CONSULTING
-────────────────────────────────────────
-Organization / Role                     20XX
-  - Description of work
-
-[Add a real PDF download link here once deployed]
-  </div>
-  <div class="resize-handle" onmousedown="startResize(event, 'win-resume')"></div>
-</div>
-
-<!-- Contact -->
-<div class="win95-window" id="win-contact" style="width:360px; height:260px; top:160px; left:260px;">
-  <div class="title-bar" onmousedown="startDrag(event, 'win-contact')">
-    <div class="title-bar-text">✉ Contact</div>
-    <div class="title-bar-controls">
-      <div class="title-btn" onclick="minimizeWindow('win-contact')">_</div>
-      <div class="title-btn" onclick="maximizeWindow('win-contact')">□</div>
-      <div class="title-btn" onclick="closeWindow('win-contact')">✕</div>
-    </div>
-  </div>
-  <div class="menu-bar">
-    <div class="menu-item">File</div>
-    <div class="menu-item">Edit</div>
-    <div class="menu-item">View</div>
-  </div>
-  <div class="window-content">
-    <div class="inset-box">
-      <div class="section-title">Get in Touch</div>
-      <div class="content-text">
-        <p>📧 your.email@email.com</p>
-        <p>🔗 linkedin.com/in/yourhandle</p>
-        <p>🐙 github.com/yourhandle</p>
-      </div>
-    </div>
-    <div style="text-align:center; margin-top:8px;">
-      <button style="background:#c0c0c0; border-top:2px solid #fff; border-left:2px solid #fff; border-right:2px solid #808080; border-bottom:2px solid #808080; padding:4px 16px; cursor:pointer; font-size:11px;" onclick="alert('Email copied! (Add real mailto link here)')">
-        ✉ Send Email
-      </button>
-    </div>
-  </div>
-  <div class="resize-handle" onmousedown="startResize(event, 'win-contact')"></div>
-</div>
-
-<!-- Why Medicine -->
-<div class="win95-window" id="win-whymed" style="width:440px; height:300px; top:80px; left:180px;">
-  <div class="title-bar" onmousedown="startDrag(event, 'win-whymed')">
-    <div class="title-bar-text">📝 Why Medicine.txt - Notepad</div>
-    <div class="title-bar-controls">
-      <div class="title-btn" onclick="minimizeWindow('win-whymed')">_</div>
-      <div class="title-btn" onclick="maximizeWindow('win-whymed')">□</div>
-      <div class="title-btn" onclick="closeWindow('win-whymed')">✕</div>
-    </div>
-  </div>
-  <div class="menu-bar">
-    <div class="menu-item">File</div>
-    <div class="menu-item">Edit</div>
-    <div class="menu-item">Format</div>
-    <div class="menu-item">Help</div>
-  </div>
-  <div class="notepad-content">Why Medicine?
-═══════════════════════════════════════
-
-Write your personal statement excerpt here.
-
-This is a great place to share the moment
-or experience that made you want to pursue
-medicine. Keep it authentic — this is your
-story.
-
-It doesn't need to be polished. Just real.
-
-"The moment I knew..." → tell that story.
-
-[Replace this with your actual reflection]
-  </div>
-  <div class="resize-handle" onmousedown="startResize(event, 'win-whymed')"></div>
-</div>
-
-<!-- Taskbar -->
-<div id="taskbar">
-  <button id="start-btn" onclick="toggleStartMenu()">
-    <span style="font-size:14px;">⊞</span> Start
-  </button>
-  <div class="taskbar-divider"></div>
-  <div id="taskbar-buttons"></div>
-  <div id="clock">12:00 PM</div>
-</div>
-
-<!-- Start Menu -->
-<div id="start-menu">
-  <div id="start-menu-sidebar">Windows 95</div>
-  <div id="start-menu-items">
-    <div class="start-menu-item" onclick="openWindow('about'); toggleStartMenu()">👤 About Me</div>
-    <div class="start-menu-item" onclick="openWindow('research'); toggleStartMenu()">🔬 Research</div>
-    <div class="start-menu-item" onclick="openWindow('clinical'); toggleStartMenu()">🏥 Clinical</div>
-    <div class="start-menu-item" onclick="openWindow('volunteering'); toggleStartMenu()">🤝 Volunteering</div>
-    <div class="start-menu-item" onclick="openWindow('consulting'); toggleStartMenu()">💼 Consulting</div>
-    <div class="start-menu-item" onclick="openWindow('resume'); toggleStartMenu()">📄 Resume</div>
-    <div class="start-menu-item" onclick="openWindow('whymed'); toggleStartMenu()">📝 Why Medicine</div>
-    <div class="start-menu-item" onclick="openWindow('contact'); toggleStartMenu()">✉ Contact</div>
-    <div class="start-menu-divider"></div>
-    <div class="start-menu-item" onclick="alert('Shutting down... (just kidding)')">🔌 Shut Down</div>
-  </div>
-</div>
+</footer>
 
 <script>
-  // Window management
-  const windows = {};
-  const taskbarBtns = {};
+  // Nav scroll state
+  const nav = document.getElementById('nav');
+  const sections = [...document.querySelectorAll('section[id], header[id]')];
+  const navAnchors = [...document.querySelectorAll('.nav-links a:not(.nav-cta)')];
 
-  function getWin(id) {
-    return document.getElementById('win-' + id);
-  }
-
-  function openWindow(id) {
-    const win = getWin(id);
-    if (!win) return;
-    win.classList.add('open');
-    focusWindow(id);
-    addToTaskbar(id, win.querySelector('.title-bar-text').textContent);
-    document.getElementById('welcome').style.display = 'none';
-  }
-
-  function closeWindow(id) {
-    const win = getWin(id);
-    win.classList.remove('open');
-    win.dataset.minimized = '';
-    removeFromTaskbar(id);
-  }
-
-  function minimizeWindow(id) {
-    const win = getWin(id);
-    win.classList.remove('open');
-    win.dataset.minimized = 'true';
-    if (taskbarBtns[id]) taskbarBtns[id].classList.remove('active');
-  }
-
-  const savedSizes = {};
-  function maximizeWindow(id) {
-    const win = getWin(id);
-    if (win.dataset.maximized === 'true') {
-      const s = savedSizes[id];
-      if (s) {
-        win.style.left = s.left; win.style.top = s.top;
-        win.style.width = s.width; win.style.height = s.height;
-      }
-      win.dataset.maximized = '';
-    } else {
-      savedSizes[id] = { left: win.style.left, top: win.style.top, width: win.style.width, height: win.style.height };
-      win.style.left = '0'; win.style.top = '0';
-      win.style.width = '100%';
-      win.style.height = (window.innerHeight - 28) + 'px';
-      win.dataset.maximized = 'true';
+  function onScroll() {
+    nav.classList.toggle('scrolled', window.scrollY > 30);
+    let current = '';
+    const pos = window.scrollY + 140;
+    for (const s of sections) {
+      if (s.offsetTop <= pos) current = s.id;
     }
-  }
-
-  function focusWindow(id) {
-    document.querySelectorAll('.win95-window').forEach(w => w.classList.remove('active'));
-    Object.values(taskbarBtns).forEach(b => b.classList.remove('active'));
-    const win = getWin(id);
-    win.classList.add('active');
-    if (taskbarBtns[id]) taskbarBtns[id].classList.add('active');
-  }
-
-  function addToTaskbar(id, label) {
-    if (taskbarBtns[id]) {
-      taskbarBtns[id].classList.add('active');
-      return;
-    }
-    const btn = document.createElement('button');
-    btn.className = 'taskbar-btn active';
-    btn.textContent = label.trim().substring(0, 20);
-    btn.onclick = () => {
-      const win = getWin(id);
-      if (win.dataset.minimized === 'true') {
-        win.classList.add('open');
-        win.dataset.minimized = '';
-        focusWindow(id);
-      } else if (win.classList.contains('active')) {
-        minimizeWindow(id);
-      } else {
-        focusWindow(id);
-      }
-    };
-    taskbarBtns[id] = btn;
-    document.getElementById('taskbar-buttons').appendChild(btn);
-  }
-
-  function removeFromTaskbar(id) {
-    if (taskbarBtns[id]) {
-      taskbarBtns[id].remove();
-      delete taskbarBtns[id];
-    }
-  }
-
-  // Click desktop to deselect icons
-  document.getElementById('desktop').addEventListener('click', e => {
-    if (e.target === document.getElementById('desktop') || e.target === document.getElementById('welcome') || e.target.tagName === 'H1' || e.target.tagName === 'P') {
-      document.querySelectorAll('.icon').forEach(i => i.classList.remove('selected'));
-      closeStartMenu();
-    }
-  });
-
-  function selectIcon(el) {
-    document.querySelectorAll('.icon').forEach(i => i.classList.remove('selected'));
-    el.classList.add('selected');
-  }
-
-  // Focus window on click
-  document.querySelectorAll('.win95-window').forEach(win => {
-    win.addEventListener('mousedown', () => {
-      const id = win.id.replace('win-', '');
-      focusWindow(id);
+    navAnchors.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
     });
-  });
-
-  // Drag
-  let dragState = null;
-  function startDrag(e, id) {
-    if (e.target.classList.contains('title-btn')) return;
-    const win = getWin(id);
-    focusWindow(id);
-    const rect = win.getBoundingClientRect();
-    dragState = { id, offsetX: e.clientX - rect.left, offsetY: e.clientY - rect.top };
-    e.preventDefault();
   }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 
-  document.addEventListener('mousemove', e => {
-    if (dragState) {
-      const win = getWin(dragState.id);
-      let x = e.clientX - dragState.offsetX;
-      let y = e.clientY - dragState.offsetY;
-      y = Math.max(0, Math.min(y, window.innerHeight - 50));
-      x = Math.max(-win.offsetWidth + 50, Math.min(x, window.innerWidth - 50));
-      win.style.left = x + 'px';
-      win.style.top = y + 'px';
-    }
-    if (resizeState) {
-      const win = getWin(resizeState.id);
-      win.style.width = Math.max(200, resizeState.startW + e.clientX - resizeState.startX) + 'px';
-      win.style.height = Math.max(150, resizeState.startH + e.clientY - resizeState.startY) + 'px';
-    }
-  });
+  // Mobile menu
+  const toggle = document.getElementById('menuToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => links.classList.toggle('open'));
+  links.addEventListener('click', e => { if (e.target.tagName === 'A') links.classList.remove('open'); });
 
-  document.addEventListener('mouseup', () => { dragState = null; resizeState = null; });
-
-  // Resize
-  let resizeState = null;
-  function startResize(e, id) {
-    const win = getWin(id);
-    resizeState = { id, startX: e.clientX, startY: e.clientY, startW: win.offsetWidth, startH: win.offsetHeight };
-    e.preventDefault();
-    e.stopPropagation();
-  }
-
-  // Start menu
-  function toggleStartMenu() {
-    document.getElementById('start-menu').classList.toggle('open');
-  }
-  function closeStartMenu() {
-    document.getElementById('start-menu').classList.remove('open');
-  }
-  document.addEventListener('click', e => {
-    if (!e.target.closest('#start-menu') && !e.target.closest('#start-btn')) closeStartMenu();
-  });
-
-  // Clock
-  function updateClock() {
-    const now = new Date();
-    let h = now.getHours(), m = now.getMinutes();
-    const ampm = h >= 12 ? 'PM' : 'AM';
-    h = h % 12 || 12;
-    document.getElementById('clock').textContent = h + ':' + String(m).padStart(2, '0') + ' ' + ampm;
-  }
-  updateClock();
-  setInterval(updateClock, 10000);
-
-  // Double-click detection for touch
-  let lastTap = {};
-  document.querySelectorAll('.icon').forEach(icon => {
-    icon.addEventListener('touchend', e => {
-      const now = Date.now();
-      const id = icon.getAttribute('ondblclick');
-      if (lastTap[id] && now - lastTap[id] < 400) {
-        icon.ondblclick();
-      }
-      lastTap[id] = now;
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
     });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal:not(.in)').forEach(el => io.observe(el));
+
+  // LinkedIn placeholder
+  document.getElementById('linkedinBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    alert('Add your LinkedIn URL here — tell me your handle and I\'ll wire it up.');
   });
 </script>
 </body>
